@@ -14,13 +14,14 @@ public enum PlayerType
     Player2
 }
 
-public class GameManager : MonoBehaviour
+public class GameManager : SingletonBehaviour<GameManager>
 {
     public GameObject eventManager;
     
-    public TextMeshProUGUI timerText;
-    public int headSecond;
+    private TextMeshProUGUI _player1Score;
+    private TextMeshProUGUI _player2Score;
     
+    public TextMeshProUGUI timerText;
     public Image timeGauge;
     private float elapsedTime;
     private int previousSecond;
@@ -82,5 +83,20 @@ public class GameManager : MonoBehaviour
         int displaySeconds = (int)elapsedTime;
         timerText.text = displaySeconds.ToString();
         timeGauge.fillAmount = elapsedTime / 160f;
+    }
+
+    public void AddScore(PlayerType playerType,int val)
+    {
+        /*if(val)
+         val*2;
+         */
+        if (playerType == PlayerType.Player1)
+        {
+            _player1Score.text += val;
+        }
+        else if (playerType == PlayerType.Player2)
+        {
+            _player1Score.text += val;
+        }
     }
 }
