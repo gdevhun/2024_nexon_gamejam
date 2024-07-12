@@ -59,8 +59,8 @@ public class BallManager : MonoBehaviour
             // 공 발사
             lineObject.SetActive(false);
             ballRb.velocity = Vector2.zero; 
-            ballRb.AddForce(direction * throwingForce, ForceMode2D.Impulse);
-
+            //ballRb.AddForce(direction * throwingForce, ForceMode2D.Impulse);
+            
             gameObject.layer = 0; 
             ballRb.gravityScale = 4f;
             ballState = BallState.ROLLING;
