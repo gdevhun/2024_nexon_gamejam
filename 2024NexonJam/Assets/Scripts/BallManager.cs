@@ -50,15 +50,15 @@ public class BallManager : MonoBehaviour
         while (ballState == BallState.WAITING)
         {
             lineObject.SetActive(true);
-            Vector2 direction = lineTransform.GetComponent<gagueRotate>().GetCurrentDirection();
+            //Vector2 direction = lineTransform.GetComponent<gagueRotate>().GetCurrentDirection();
 
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
             // 공 발사
             lineObject.SetActive(false);
             ballRb.velocity = Vector2.zero; 
-            ballRb.AddForce(direction * throwingForce, ForceMode2D.Impulse);
-
+            //ballRb.AddForce(direction * throwingForce, ForceMode2D.Impulse);
+            
             gameObject.layer = 0; 
             ballRb.gravityScale = 4f;
             ballState = BallState.ROLLING;
