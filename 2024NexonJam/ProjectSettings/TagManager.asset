@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - ball
+  - Player1Inventory
+  - Player2Inventory
   - goal
   layers:
   - Default

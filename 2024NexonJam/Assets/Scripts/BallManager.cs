@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BallManager : MonoBehaviour
 {
+    public PlayerType LastPlayerType;
     public float throwingForce = 10f;
     
 
@@ -20,23 +21,13 @@ public class BallManager : MonoBehaviour
         GOAL
     }
 
-    enum LastTouch
-    {
-        none,
-        player1,
-        player2
-    }
- 
-
     [SerializeField] private BallState ballState;
-    
-    LastTouch lastTouch;
     
     void Start()
     {
         ballRb = GetComponent<Rigidbody2D>();
         ballState = BallState.WAITING;
-        lastTouch = LastTouch.none;
+        LastPlayerType = PlayerType.None;
 
         lineObject = transform.Find("Line").gameObject;
         if (lineObject != null) lineTransform = lineObject.transform;
