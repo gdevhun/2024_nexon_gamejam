@@ -42,17 +42,19 @@ public class BallManager : MonoBehaviour
     }
 
     IEnumerator WAITING(){ //게임 초기화
-        ballRb.gravityScale = 0f;
         gameObject.layer = 6; 
+        ballRb.velocity = Vector2.zero; 
+        ballRb.gravityScale = 0f;
         transform.position = new Vector3(0f, -4f, 0f);
-
 
         while (ballState == BallState.WAITING)
         {
             lineObject.SetActive(true);
-            Vector2 direction = lineTransform.GetComponent<gagueRotate>().GetCurrentDirection();
+            
 
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+
+            Vector2 direction = lineObject.GetComponent<gagueRotate>().GetCurrentDirection();
 
             // 공 발사
             lineObject.SetActive(false);
@@ -66,7 +68,7 @@ public class BallManager : MonoBehaviour
         }
     }
     IEnumerator ROLLING(){
-        while(ballState == BallState.WAITING){
+        while(ballState == BallState.ROLLING){
             yield return null;
         }
     }
@@ -99,8 +101,6 @@ public class BallManager : MonoBehaviour
     {
         if (other.gameObject.CompareTag("goal"))
         {
-            ballRb.velocity = Vector2.zero; 
-            Debug.Log("터치됨");
             ballState = BallState.GOAL;
         }
     }

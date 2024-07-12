@@ -34,7 +34,6 @@ public class gagueRotate : MonoBehaviour
     }
     public Vector2 GetCurrentDirection()
     {
-        // 현재 회전 각도를 이용하여 방향 벡터 계산
         Vector2 direction = Quaternion.Euler(0, 0, currentAngle) * Vector2.right;
         return direction.normalized;
     }
