@@ -6,7 +6,7 @@ public class Swing : MonoBehaviour
 
     private HingeJoint2D hinge;
     private JointMotor2D motor;
-     public KeyCode activationKey;
+    public KeyCode activationKey;
 
     public float speed = 1000f;
 

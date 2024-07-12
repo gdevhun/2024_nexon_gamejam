@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BallManager : MonoBehaviour
 {
-
-    public float throwingRange = 140f;
-    public float throwingRadius = 5f;
+    public float throwingForce = 10f;
     
-    private bool isGaugeActive = false;
-    private bool isForceApplied = false;
-    private float gaugeAngle;
+
+    private Rigidbody2D ballRb;
+    private GameObject lineObject;
+    private Transform lineTransform;
 
 
     enum BallState
@@ -28,14 +28,20 @@ public class BallManager : MonoBehaviour
     }
  
 
-    BallState ballState;
+    [SerializeField] private BallState ballState;
     
     LastTouch lastTouch;
     
     void Start()
     {
+        ballRb = GetComponent<Rigidbody2D>();
         ballState = BallState.WAITING;
-        startCoroutine(StateMachine());
+        lastTouch = LastTouch.none;
+
+        lineObject = transform.Find("Line").gameObject;
+        if (lineObject != null) lineTransform = lineObject.transform;
+        
+        StartCoroutine(StateMachine());
     }
 
     IEnumerator StateMachine(){
@@ -44,69 +50,67 @@ public class BallManager : MonoBehaviour
         }
     }
 
-    IEnumerator WAITING(){
-        lastTouch = LastTouch.none;
-        //애니메이션 웨이팅으로
-        //게이지바 setTrue?? 재활용 위해서라도 setTrue하고 vector 받아오는 식으로 해야할듯? 
-     
+    IEnumerator WAITING(){ //게임 초기화
+        ballRb.gravityScale = 0f;
+        gameObject.layer = 6; 
+        transform.position = new Vector3(0f, -4f, 0f);
+
+
+        while (ballState == BallState.WAITING)
+        {
+            lineObject.SetActive(true);
+            Vector2 direction = lineTransform.GetComponent<gagueRotate>().GetCurrentDirection();
+
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+
+            // 공 발사
+            lineObject.SetActive(false);
+            ballRb.velocity = Vector2.zero; 
+            ballRb.AddForce(direction * throwingForce, ForceMode2D.Impulse);
+
+            gameObject.layer = 0; 
+            ballRb.gravityScale = 4f;
+            ballState = BallState.ROLLING;
+            yield return null;
+        }
     }
     IEnumerator ROLLING(){
-        //얘는 딱히 할거 없음. 알아서 냅두면 됨.
-        //goal tag 에 onTriggered되면 velocity 멈춤. 
-        ballState = BallState.GOAL;
+        while(ballState == BallState.WAITING){
+            yield return null;
+        }
     }
     
 
     IEnumerator GOAL(){
-        //goal 애니메이션
-        ballState = BallState.WAITING;
+        while(ballState == BallState.GOAL){
+            //goal 세레모니?
+            yield return new WaitForSeconds(2f); //세레모니 기다리는 시간?
+            ballState = BallState.WAITING;
+        }
     }
     
     void OnCollisionEnter2D(Collision2D other)
     {
-        //player1 태그랑 부딪히면 animation 바꿈. 
-        //  lastTouch = LastTouch.player1;
-        //  animation player1으로 바꿔주기  
-
-        //player2 태그랑 부딪히면 animation 바꿈. 
-        //  lastTouch = LastTouch.player2;
-        //  animation player2로 바꿔주기
-
+        /*
+        if (other.gameObject.CompareTag("player1"))
+        {
+            //lastTouch = LastTouch.player1;
+            // player1 애니메이션으로 변경하는 코드를 여기에 추가
+        }
+        else if (other.gameObject.CompareTag("player2"))
+        {
+            //lastTouch = LastTouch.player2;
+            // player2 애니메이션으로 변경하는 코드를 여기에 추가
+        }*/
     }
 
-    private IEnumerator GaugeRoutine()
+    void OnTriggerEnter2D(Collider2D other)
     {
-        float gaugeSpeed = 60f; // 게이지가 이동하는 속도 (도/초)
-        float angleStep = gaugeSpeed * Time.deltaTime;
-        gaugeAngle = -throwingRange / 2;
-
-        while (isGaugeActive)
+        if (other.gameObject.CompareTag("goal"))
         {
-            gaugeAngle += angleStep;
-
-            if (gaugeAngle > throwingRange / 2)
-            {
-                gaugeAngle = -throwingRange / 2;
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                isGaugeActive = false;
-                
-                // 현재 게이지 각도를 기반으로 방향 계산
-                Vector2 direction = Rotate(Vector2.right, gaugeAngle).normalized;
-
-                // 공의 속도를 0으로 설정
-                ballRb.velocity = Vector2.zero;
-
-                // 공에 힘 적용
-                ballRb.AddForce(direction * forceStrength, ForceMode2D.Impulse);
-                ballState = BallState.ROLLING;
-
-            }
-
-            yield return null;
+            ballRb.velocity = Vector2.zero; 
+            Debug.Log("터치됨");
+            ballState = BallState.GOAL;
         }
     }
-
 }
