@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BallManager : MonoBehaviour
 {
-
+    public PlayerType LastPlayerType;
     public float throwingRange = 140f;
     public float throwingRadius = 5f;
     
@@ -20,31 +20,22 @@ public class BallManager : MonoBehaviour
         GOAL
     }
 
-    enum LastTouch
-    {
-        none,
-        player1,
-        player2
-    }
- 
-
-    BallState ballState;
     
-    LastTouch lastTouch;
+    BallState ballState;
     
     void Start()
     {
-        ballState = BallState.WAITING;
-        startCoroutine(StateMachine());
+        //ballState = BallState.WAITING;
+        //StartCoroutine(StateMachine());
     }
 
-    IEnumerator StateMachine(){
+    /*IEnumerator StateMachine(){
         while(true){
             yield return StartCoroutine(ballState.ToString());
         }
-    }
+    }*/
 
-    IEnumerator WAITING(){
+    /*IEnumerator WAITING(){
         lastTouch = LastTouch.none;
         //애니메이션 웨이팅으로
         //게이지바 setTrue?? 재활용 위해서라도 setTrue하고 vector 받아오는 식으로 해야할듯? 
@@ -89,7 +80,7 @@ public class BallManager : MonoBehaviour
                 gaugeAngle = -throwingRange / 2;
             }
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            /*if (Input.GetKeyDown(KeyCode.Space))
             {
                 isGaugeActive = false;
                 
@@ -107,6 +98,6 @@ public class BallManager : MonoBehaviour
 
             yield return null;
         }
-    }
+    }*/
 
 }
