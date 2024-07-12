@@ -1,22 +1,32 @@
 using System.Collections;
 using UnityEngine;
 
-public class swing : MonoBehaviour
+public class Swing : MonoBehaviour
 { 
-    private bool isFlipped = false;
 
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
+    private HingeJoint2D hinge;
+    private JointMotor2D motor;
+     public KeyCode activationKey;
+
+    public float speed = 1000f;
+
+    void Start()
+    {
+        hinge = GetComponent<HingeJoint2D>();
+        motor = hinge.motor;
+    }    
+
     void Update()
     {        
-        if(Input.GetKeyDown(KeyCode.A))
+        if(Input.GetKeyDown(activationKey))
         {
-            GetComponent<HingeJoint2D>().useMotor = true;
+            motor.motorSpeed = -speed;
+            hinge.motor = motor;        
         }
-        if(Input.GetKeyUp(KeyCode.A))
+        if(Input.GetKeyUp(activationKey))
         {
-            GetComponent<HingeJoint2D>().useMotor = false;
+            motor.motorSpeed = speed;
+            hinge.motor = motor;       
         }
     }
 }
