@@ -101,6 +101,7 @@ public class BallManager : MonoBehaviour
     {
         if (other.gameObject.CompareTag("goal"))
         {
+            ballRb.velocity = Vector2.zero;
             ballState = BallState.GOAL;
         }
     }
