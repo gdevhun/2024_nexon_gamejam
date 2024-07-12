@@ -5,12 +5,7 @@ public class holder : MonoBehaviour
 {
     public PlayerType playerType;
     private Transform _transform;
-    public enum PlayerType
-    {
-        player1,
-        player2
-    }
-
+    
     private Vector3 targetPosition;
     private float moveSpeed = 2.0f; // 이동 속도 조절
 
@@ -22,7 +17,7 @@ public class holder : MonoBehaviour
 
     void Update()
     {
-        if (playerType == PlayerType.player1)
+        if (playerType == PlayerType.Player1)
         {
             if (Input.GetKey(KeyCode.W))
             {
@@ -33,7 +28,7 @@ public class holder : MonoBehaviour
                 MoveDown();
             }
         }
-        else if (playerType == PlayerType.player2)
+        else if (playerType == PlayerType.Player2)
         {
             if (Input.GetKey(KeyCode.UpArrow))
             {
