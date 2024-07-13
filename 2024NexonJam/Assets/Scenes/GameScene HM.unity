@@ -1241,6 +1241,7 @@ GameObject:
   - component: {fileID: 347994041}
   - component: {fileID: 347994040}
   - component: {fileID: 347994039}
+  - component: {fileID: 347994042}
   m_Layer: 0
   m_Name: fingerL
   m_TagString: Untagged
@@ -1376,6 +1377,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &347994042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347994037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8b690ad7b082ed469cd3d743dc0c56d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &370599385
 GameObject:
   m_ObjectHideFlags: 0
@@ -5383,6 +5396,7 @@ GameObject:
   - component: {fileID: 1249547733}
   - component: {fileID: 1249547735}
   - component: {fileID: 1249547734}
+  - component: {fileID: 1249547736}
   m_Layer: 0
   m_Name: "\uC18C\uB77C_\uC624"
   m_TagString: Untagged
@@ -5492,6 +5506,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1249547736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249547732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8b690ad7b082ed469cd3d743dc0c56d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1271281298
 GameObject:
   m_ObjectHideFlags: 0
@@ -6409,6 +6435,7 @@ GameObject:
   - component: {fileID: 1729015567}
   - component: {fileID: 1729015569}
   - component: {fileID: 1729015568}
+  - component: {fileID: 1729015570}
   m_Layer: 0
   m_Name: "\uC18C\uB77C_\uC67C"
   m_TagString: Untagged
@@ -6518,6 +6545,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1729015570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729015566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8b690ad7b082ed469cd3d743dc0c56d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1745068027
 GameObject:
   m_ObjectHideFlags: 0
@@ -6748,6 +6787,7 @@ GameObject:
   - component: {fileID: 1821996295}
   - component: {fileID: 1821996294}
   - component: {fileID: 1821996296}
+  - component: {fileID: 1821996297}
   m_Layer: 0
   m_Name: fingerR
   m_TagString: Untagged
@@ -6883,6 +6923,18 @@ MonoBehaviour:
   ballType:
   - {fileID: 21300000, guid: f4261122b80a00848baee5528ab81b32, type: 3}
   - {fileID: 21300000, guid: e7a5df30ae66f164d8c2f71448ff8d17, type: 3}
+--- !u!114 &1821996297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821996292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8b690ad7b082ed469cd3d743dc0c56d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1825028308
 GameObject:
   m_ObjectHideFlags: 0
@@ -7209,6 +7261,7 @@ GameObject:
   - component: {fileID: 1852497360}
   - component: {fileID: 1852497361}
   - component: {fileID: 1852497362}
+  - component: {fileID: 1852497363}
   m_Layer: 0
   m_Name: Whale_L
   m_TagString: Untagged
@@ -7371,6 +7424,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reflectForce: 3
+--- !u!114 &1852497363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852497358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8b690ad7b082ed469cd3d743dc0c56d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1861670684
 GameObject:
   m_ObjectHideFlags: 0
@@ -8089,6 +8154,7 @@ GameObject:
   - component: {fileID: 1970792111}
   - component: {fileID: 1970792112}
   - component: {fileID: 1970792113}
+  - component: {fileID: 1970792114}
   m_Layer: 0
   m_Name: Whale_R
   m_TagString: Untagged
@@ -8248,7 +8314,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c367e67129c04e4a9badd641e2e6dd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reflectForce: 3
+  reflectForce: 10
+--- !u!114 &1970792114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970792109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8b690ad7b082ed469cd3d743dc0c56d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1982937370
 GameObject:
   m_ObjectHideFlags: 0
@@ -8634,6 +8712,7 @@ GameObject:
   - component: {fileID: 2059680725}
   - component: {fileID: 2059680724}
   - component: {fileID: 2059680723}
+  - component: {fileID: 2059680727}
   m_Layer: 0
   m_Name: "\uAF43\uAC8C"
   m_TagString: Untagged
@@ -8828,6 +8907,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 699635992}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2059680727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059680722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8b690ad7b082ed469cd3d743dc0c56d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2092697470
 GameObject:
   m_ObjectHideFlags: 0
@@ -9548,7 +9639,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 2
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!60 &4628114292348526743
 PolygonCollider2D:
@@ -9999,7 +10090,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 2
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!50 &8641135548088328602
 Rigidbody2D:
@@ -10026,7 +10117,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 2
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!50 &8641135549853461678
 Rigidbody2D:
@@ -10053,7 +10144,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 2
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
