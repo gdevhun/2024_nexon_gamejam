@@ -17,9 +17,11 @@ public enum PlayerType
 public class GameManager : SingletonBehaviour<GameManager>
 {
     public GameObject eventManager;
+    public List<GameObject> GimicEventImg;
+    private WaitForSeconds _waitForSeconds = new WaitForSeconds(2.5f);
     
-    private TextMeshProUGUI _player1Score;
-    private TextMeshProUGUI _player2Score;
+    public TextMeshProUGUI _player1Score;
+    public TextMeshProUGUI _player2Score;
     
     public TextMeshProUGUI timerText;
     public Image timeGauge;
@@ -49,25 +51,31 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     private void CheckMilestones(int seconds)
     {   //플레이 타임 총 160초
-        if (seconds == 40 || seconds == 80 || seconds == 120)
+        if (seconds == 40)
         {
             // 40,80,120 초 도달
-            int randomIdx = Random.Range(0, 1);
-
-            if (randomIdx == 1)   //렌덤으로 호출
-            {
-                eventManager.GetComponent<EventManager>().CrabEvent();
-            }
-            else
-            {
-                eventManager.GetComponent<EventManager>().WaveEvent();
-            }
-            Debug.Log(seconds+"random"+randomIdx);
+            RandomGimicEvent();
+            StartCoroutine(DisplayGimicEventImg(1));
         }
-        else if (seconds == 60 || seconds == 100)
-        {   //60,90초 도달시 헬리콥터
+        else if (seconds == 60)
+        {
             eventManager.GetComponent<EventManager>().HelicopterEvent();
-            Debug.Log(seconds+"헬리콥터");
+            StartCoroutine(DisplayGimicEventImg(2));
+        }
+        else if (seconds == 80)
+        {
+            RandomGimicEvent();
+            StartCoroutine(DisplayGimicEventImg(3));
+        }
+        else if (seconds == 100)
+        {
+            eventManager.GetComponent<EventManager>().HelicopterEvent();
+            StartCoroutine(DisplayGimicEventImg(4));
+        }
+        else if (seconds == 120)
+        {
+            RandomGimicEvent();
+            StartCoroutine(DisplayGimicEventImg(5));
         }
         else if (seconds > 159)
         {   //90초 넘으면 게이지 초기화
@@ -97,6 +105,36 @@ public class GameManager : SingletonBehaviour<GameManager>
         else if (playerType == PlayerType.Player2)
         {
             _player1Score.text += val;
+        }
+    }
+
+    public void InitGameManager()
+    {
+        Destroy(this);
+    }
+
+    public IEnumerator DisplayGimicEventImg(int num)
+    {   //기믹 이벤트 HUD 이미지 표시 함수
+        if (num >= 1 && num <= GimicEventImg.Count)
+        {
+            GimicEventImg[num - 1].SetActive(true);
+            yield return _waitForSeconds;
+            GimicEventImg[num - 1].SetActive(false); // 비활성화
+        }
+    }
+
+    public void RandomGimicEvent()
+    {   //랜덤으로 기믹 이벤트 발생 함수
+        // 40,80,120 초 도달
+        int randomIdx = Random.Range(0, 1);
+
+        if (randomIdx == 1)   //렌덤으로 호출
+        {
+            eventManager.GetComponent<EventManager>().CrabEvent();
+        }
+        else
+        {
+            eventManager.GetComponent<EventManager>().WaveEvent();
         }
     }
 }
