@@ -151,10 +151,10 @@ public class BallManager : MonoBehaviour
             ballRb.velocity = Vector2.zero;
 
             float directionX = (Random.value < 0.5f) ? 1f : -1f;
-            float directionY = 0.9f;
+            float directionY = 0.85f;
 
             Vector2 randomDirection = new Vector2(directionX, directionY).normalized;
-            Vector2 forceToAdd = randomDirection * 4f;
+            Vector2 forceToAdd = randomDirection * 6f;
 
             ballRb.AddForce(forceToAdd, ForceMode2D.Impulse);
 
