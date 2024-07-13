@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class gagueRotate : MonoBehaviour
+public class gaugeRotate : MonoBehaviour
 {
     public float startAngle = 15f; 
     public float endAngle = 165f; 

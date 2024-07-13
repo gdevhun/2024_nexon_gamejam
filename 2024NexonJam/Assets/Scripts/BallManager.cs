@@ -12,7 +12,6 @@ public class BallManager : MonoBehaviour
     private Rigidbody2D ballRb;
     private GameObject lineObject;
     private GameObject gaugeBack;
-    private Transform lineTransform;
 
 
     enum BallState
@@ -32,7 +31,6 @@ public class BallManager : MonoBehaviour
 
         lineObject = transform.Find("Line").gameObject;
         gaugeBack = transform.Find("gauge_back").gameObject;
-        if (lineObject != null) lineTransform = lineObject.transform;
         
         StartCoroutine(StateMachine());
     }
@@ -61,7 +59,7 @@ public class BallManager : MonoBehaviour
 
     void launchBall()
     {
-        Vector2 direction = lineObject.GetComponent<gagueRotate>().GetCurrentDirection();
+        Vector2 direction = lineObject.GetComponent<gaugeRotate>().GetCurrentDirection();
 
         objSetActive(false);
         ballRb.velocity = Vector2.zero;
