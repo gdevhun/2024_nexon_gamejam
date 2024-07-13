@@ -40,9 +40,6 @@ public class SoundManager : SingletonBehaviour<SoundManager>
         // 볼륨 초기화
         bgmVolume = 0.6f; 
         sfxVolume = 1f;
-        
-        // 메뉴bgm재생
-        PlayBGM(SoundType.MenuBGM);
 
         // SFX 플레이어 몇 개를 초기에 생성하고 리스트에 추가
         for (int i = 0; i < 20; i++)
@@ -50,6 +47,17 @@ public class SoundManager : SingletonBehaviour<SoundManager>
             AudioSource sfxPlayer = gameObject.AddComponent<AudioSource>();
             sfxPlayers.Add(sfxPlayer);
             _sfxQueue.Enqueue(sfxPlayer);
+        }
+        
+        // 메뉴bgm재생
+        if (!bgmPlayer.isPlaying)
+        {
+            PlayBGM(SoundType.인트로메뉴Bgm);
+        }
+        else
+        {
+            StopBGM();
+            PlayBGM(SoundType.인트로메뉴Bgm);
         }
     }
 
@@ -128,17 +136,31 @@ public class SoundManager : SingletonBehaviour<SoundManager>
         // 슬라이더 값을 변수에 저장해서 효과음을 실행할때마다 볼륨을 지정
         sfxVolume = volume;
     }
-
-    public void PlayBtnSfx()
-    {
-        PlaySfx(SoundType.PlayerWalkSfx);
-    }
 }
 
 public enum SoundType
 {
-    MenuBGM = 0,
-    FirstBGM = 1,
-    SecondBGM = 2,
-    PlayerWalkSfx = 3,
+    인트로메뉴Bgm,
+    메뉴씬Bgm,
+    게임씬Bgm,
+    
+    아일랜드웨이브sfx,
+    흙충돌sfx,
+    고래와튜브충돌sfx,
+    거품산호sfx,
+    슬라이드강하sfx,
+    조작바충돌sfx,
+    파도기믹sfx,
+    꽃게기믹sfx,
+    헬리콥터기믹sfx,
+    코인획득sfx,
+    아이템획득sfx,
+    골인sfx,
+    계기판회전sfx,
+    버튼선택음sfx,
+    버튼클릭음sfx,
+    유령아이템사용sfx,
+    불가사리투척사용sfx,
+    돈두배사용sfx,
+    꽃게기믹2sfx
 }

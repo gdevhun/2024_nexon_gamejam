@@ -24,15 +24,11 @@ public class catchMonkey : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("ball"))
         {
+            SoundManager.Instance.PlaySfx(SoundType.í™ì¶©ëŒsfx);
             ball = collision.gameObject;
             ballManager = ball.GetComponent<BallManager>();
             startSequence.Append(monkeySequence());
@@ -53,11 +49,11 @@ public class catchMonkey : MonoBehaviour
             else
                 crabSR.sprite = ballType[0];
         })
-        .Append(transform.DOShakePosition(1.5f, 0.5f, 10, 5, false, true)) // Áøµ¿ È¿°ú
+        .Append(transform.DOShakePosition(1.5f, 0.5f, 10, 5, false, true)) // ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½
         .OnComplete(() => {
             ball.SetActive(true);
             LaunchBallWithDirection();
-            this.GetComponent<SpriteRenderer>().sprite = original; // ¼¼·¹¸ğ´Ï Á¾·á ÈÄ ¿ø·¡ ½ºÇÁ¶óÀÌÆ®·Î º¹¿ø
+            this.GetComponent<SpriteRenderer>().sprite = original; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         });
     }
 

@@ -22,14 +22,18 @@ public class GameManager : SingletonBehaviour<GameManager>
     
     public TextMeshProUGUI _player1Score;
     public TextMeshProUGUI _player2Score;
+    public GameObject resultPanel;
     
     public TextMeshProUGUI timerText;
     public Image timeGauge;
     private float elapsedTime;
     private int previousSecond;
     private bool _isGameEnded;
+    
     private void Start()
     {
+        SoundManager.Instance.StopBGM();
+        SoundManager.Instance.PlayBGM(SoundType.게임씬Bgm);
         elapsedTime = 0f;
         previousSecond = 0;
         UpdateTimerText();
@@ -37,7 +41,11 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     private void Update()
     {
-        if (_isGameEnded) return;
+        if (_isGameEnded)
+        {
+            return;
+        }
+        
         elapsedTime += Time.deltaTime;
         int currentSecond = (int)elapsedTime;
 
@@ -80,6 +88,7 @@ public class GameManager : SingletonBehaviour<GameManager>
         else if (seconds > 159)
         {   //90초 넘으면 게이지 초기화
             //게임 종료
+            ShowResult();
             _isGameEnded = true;
             elapsedTime = 0f;
             previousSecond = 0;
@@ -120,7 +129,12 @@ public class GameManager : SingletonBehaviour<GameManager>
             _player2Score.text = score.ToString();
         }
     }
-    
+
+    public void ShowResult()
+    {
+        Time.timeScale = 0f;
+        resultPanel.SetActive(true);
+    }
 
     public void InitGameManager()
     {

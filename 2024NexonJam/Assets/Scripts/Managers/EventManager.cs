@@ -43,6 +43,7 @@ public class EventManager : MonoBehaviour
 
     private IEnumerator HelicopterRoutine(int idx)
     {
+        SoundManager.Instance.PlaySfx(SoundType.헬리콥터기믹sfx);
         // 페이드 인
         fadeImage.color = new Color(0, 0, 0, 0); // 페이드 이미지 초기화
         fadeImage.gameObject.SetActive(true);
@@ -73,6 +74,7 @@ public class EventManager : MonoBehaviour
     }
     private void WaveOccur()
     {
+        SoundManager.Instance.PlaySfx(SoundType.파도기믹sfx);
         // 초기 위치로 설정
         waveObj.transform.localPosition = new Vector3(0, -20, 0);
         
@@ -113,15 +115,17 @@ public class EventManager : MonoBehaviour
 
     private void CrabsMove()
     {
+        SoundManager.Instance.PlaySfx(SoundType.꽃게기믹2sfx);
         // leftCrab 이동 (2초 동안)
         crabObj[0].transform.localPosition = new Vector3(-15, 1.86f, 0); // 초기 위치 설정
         crabObj[0].SetActive(true);
         crabObj[0].transform.DOMove(new Vector3(-9.3f, 1.86f, 0), 2f).OnComplete(() =>
         {
             // 1초 대기 후 원래 위치로 돌아가기
+            SoundManager.Instance.PlaySfx(SoundType.꽃게기믹sfx);
             StartCoroutine(WaitAndMoveBack(crabObj[0], new Vector3(-15, 1.86f, 0), 2f));
         });
-
+        SoundManager.Instance.PlaySfx(SoundType.꽃게기믹2sfx);
         // rightCrab 이동 (2.5초 동안)
         crabObj[1].transform.localPosition = new Vector3(8.5f, 2f, 0); // 초기 위치 설정
         crabObj[1].SetActive(true);
@@ -129,6 +133,7 @@ public class EventManager : MonoBehaviour
         {
             // 1초 대기 후 원래 위치로 돌아가기
             StartCoroutine(WaitAndMoveBack(crabObj[1], new Vector3(8.5f, 2f, 0), 2.5f));
+            SoundManager.Instance.PlaySfx(SoundType.꽃게기믹sfx);
         });
     }
 

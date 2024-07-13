@@ -22,6 +22,7 @@ public class GetSmallAndReturn : MonoBehaviour
     {
         if (!isTriggered && collision.gameObject.CompareTag("ball"))
         {
+            SoundManager.Instance.PlaySfx(SoundType.고래와튜브충돌sfx);
             isTriggered = true;
             if (isWhaleType)
             {

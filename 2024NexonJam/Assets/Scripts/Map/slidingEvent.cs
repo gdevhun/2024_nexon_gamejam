@@ -72,6 +72,7 @@ public class slidingEvent : MonoBehaviour
 
     IEnumerator startSliding()
     {
+        SoundManager.Instance.PlaySfx(SoundType.슬라이드강하sfx);
         //그러니까 slidingball이 layer slidingBall인 동안
         while (isSliding)
         {

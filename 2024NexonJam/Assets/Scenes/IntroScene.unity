@@ -221,10 +221,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgms:
   - soundType: 0
-    clip: {fileID: 8300000, guid: d08774cb5b1191b4897ed0bdbc425629, type: 3}
+    clip: {fileID: 8300000, guid: 50b0893f83baa7e4fae44a7ce5246b2a, type: 3}
+  - soundType: 1
+    clip: {fileID: 8300000, guid: 2414047fdc13c884786a2b4e78bfab29, type: 3}
+  - soundType: 2
+    clip: {fileID: 8300000, guid: daa31583297539d4ca4b97146e9eaa52, type: 3}
   sfxs:
   - soundType: 3
-    clip: {fileID: 8300000, guid: 7c30a5bd178c4ce4787f647615a23a64, type: 3}
+    clip: {fileID: 8300000, guid: 735af7e0d088952438aa05163416259e, type: 3}
+  - soundType: 4
+    clip: {fileID: 8300000, guid: ae134762222ff044dbfe125de9c2ac6f, type: 3}
+  - soundType: 5
+    clip: {fileID: 8300000, guid: 5e4a7359c7063af4cacad8bccbaf76ef, type: 3}
+  - soundType: 6
+    clip: {fileID: 8300000, guid: 42ceebfd15863aa448e6cf29542ec9f0, type: 3}
+  - soundType: 7
+    clip: {fileID: 8300000, guid: 67903bfbfb8500646b3dbb83a2e7359e, type: 3}
+  - soundType: 8
+    clip: {fileID: 8300000, guid: e83060bbf5adc4142a7b99bd3b0cb81b, type: 3}
+  - soundType: 9
+    clip: {fileID: 8300000, guid: aacfda7bf1042e54ebc63a96cf6bbecf, type: 3}
+  - soundType: 10
+    clip: {fileID: 8300000, guid: 2058605f846a095449e4d599aa71b21f, type: 3}
+  - soundType: 11
+    clip: {fileID: 8300000, guid: 94ba2446619650d4eaeda4aa8179dd2f, type: 3}
+  - soundType: 12
+    clip: {fileID: 8300000, guid: f8f028b88eca32a489d745f25a2382ff, type: 3}
+  - soundType: 13
+    clip: {fileID: 8300000, guid: 18c1599bd19058e4e90c233ac8ffdc58, type: 3}
+  - soundType: 14
+    clip: {fileID: 8300000, guid: a811a2ebc497280448d598b41f0ccacf, type: 3}
+  - soundType: 15
+    clip: {fileID: 8300000, guid: 871de55551ae2fc4399422cb3f9df084, type: 3}
+  - soundType: 16
+    clip: {fileID: 8300000, guid: c491dd84064c6b74fbcfb0d8775ce349, type: 3}
+  - soundType: 17
+    clip: {fileID: 8300000, guid: 36695af443bae87488dd2d106f01eea5, type: 3}
+  - soundType: 18
+    clip: {fileID: 8300000, guid: 9a37fac3e1433444b8f72133db6e98c3, type: 3}
+  - soundType: 19
+    clip: {fileID: 8300000, guid: 8ab28186937b3074f9154f71f24fd46c, type: 3}
+  - soundType: 20
+    clip: {fileID: 8300000, guid: c1526caf84466114abaa65fa5406d3c5, type: 3}
+  - soundType: 21
+    clip: {fileID: 8300000, guid: b372ea6eb25362a43a6975e1670f1b7d, type: 3}
   bgmPlayer: {fileID: 0}
   sfxPlayers: []
   bgmVolume: 0

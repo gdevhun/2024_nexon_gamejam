@@ -49,13 +49,16 @@ public class PlayerInventory : MonoBehaviour
         if (spriteName == "Skill_doublescore")
         {
             SkillManager.Instance.ActivateDoubleScore(playerIndex);
+            SoundManager.Instance.PlaySfx(SoundType.돈두배사용sfx);
         }
         else if (spriteName == "Skill_ghost")
         {
+            SoundManager.Instance.PlaySfx(SoundType.유령아이템사용sfx);
             SkillManager.Instance.ActivateInvisibleTurtle(playerIndex);
         }
         else if (spriteName == "Skill_starfish")
         {
+            SoundManager.Instance.PlaySfx(SoundType.불가사리투척사용sfx);
             SkillManager.Instance.ActivateThrowStarFish(playerIndex);
         }
 
