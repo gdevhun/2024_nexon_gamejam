@@ -15,13 +15,13 @@ public class slidingEvent : MonoBehaviour
     public Transform snail;
 
     private float dir = 1f;
-    public bool isSliding = false;
+    private bool isSliding = false;
     SpriteRenderer spriteRenderer;
 
-    public float timeInTrigger = 0f;
-    public bool isInTrigger = false;
+    private float timeInTrigger = 0f;
+    private bool isInTrigger = false;
 
-
+    private int originalLayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +39,7 @@ public class slidingEvent : MonoBehaviour
             slidingBall = collision.gameObject;
             slidingRb = slidingBall.GetComponent<Rigidbody2D>();
             spriteRenderer = slidingBall.GetComponent<SpriteRenderer>();
+            originalLayer = slidingBall.gameObject.layer;
 
             //시간 재기 시작 
             isInTrigger = true;
@@ -74,10 +75,10 @@ public class slidingEvent : MonoBehaviour
         //그러니까 slidingball이 layer slidingBall인 동안
         while (isSliding)
         {
-            slidingBall.layer = 8;
             yield return new WaitForSeconds(0.2f);
             slidingRb.velocity = Vector3.zero; //그 구멍에 멈춰세우고
             slidingRb.gravityScale = 0f;
+            slidingBall.layer = 8;
             slidingBall.transform.position = new Vector3(hole.position.x*dir, hole.position.y, hole.position.z);
             spriteRenderer.sortingOrder = 5;
 
@@ -92,14 +93,14 @@ public class slidingEvent : MonoBehaviour
             //켜주고
             slidingBall.SetActive(true);
             slidingBall.transform.DOScale(new Vector3(0.8f, 0.8f, 0f), 0.5f);
-            yield return new WaitForSeconds(0.2f);
+            slidingRb.gravityScale = 4f;
+            yield return new WaitForSeconds(2f);
 
            
-            slidingBall.layer = 0;
-            slidingRb.gravityScale = 4f;
-            spriteRenderer.sortingOrder = 0;
-
             isSliding = false;
+            slidingBall.layer = originalLayer;
+            spriteRenderer.sortingOrder = 3;
+
         }
     }
 
