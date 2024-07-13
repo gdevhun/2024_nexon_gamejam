@@ -1964,6 +1964,7 @@ GameObject:
   - component: {fileID: 1352454042}
   - component: {fileID: 1352454044}
   - component: {fileID: 1352454043}
+  - component: {fileID: 1352454045}
   m_Layer: 5
   m_Name: Coin
   m_TagString: Untagged
@@ -1987,7 +1988,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 1410, y: -820}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1352454043
@@ -2028,6 +2029,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1352454041}
   m_CullTransparentMesh: 1
+--- !u!114 &1352454045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352454041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d157e1b8a1c58db4eb8cbb2bb42dff77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiType: 2
 --- !u!1 &1368470858
 GameObject:
   m_ObjectHideFlags: 0
@@ -2186,6 +2200,7 @@ GameObject:
   - component: {fileID: 1631533817}
   - component: {fileID: 1631533819}
   - component: {fileID: 1631533818}
+  - component: {fileID: 1631533820}
   m_Layer: 5
   m_Name: Monkey
   m_TagString: Untagged
@@ -2209,7 +2224,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 361, y: 131}
+  m_AnchoredPosition: {x: 1625, y: -578}
   m_SizeDelta: {x: 1041, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1631533818
@@ -2250,6 +2265,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1631533816}
   m_CullTransparentMesh: 1
+--- !u!114 &1631533820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631533816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d157e1b8a1c58db4eb8cbb2bb42dff77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiType: 0
 --- !u!1 &1670442582
 GameObject:
   m_ObjectHideFlags: 0
@@ -2261,6 +2289,7 @@ GameObject:
   - component: {fileID: 1670442583}
   - component: {fileID: 1670442585}
   - component: {fileID: 1670442584}
+  - component: {fileID: 1670442586}
   m_Layer: 5
   m_Name: Turtle
   m_TagString: Untagged
@@ -2284,7 +2313,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 97, y: -213}
+  m_AnchoredPosition: {x: 1264, y: -884}
   m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1670442584
@@ -2325,6 +2354,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1670442582}
   m_CullTransparentMesh: 1
+--- !u!114 &1670442586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670442582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d157e1b8a1c58db4eb8cbb2bb42dff77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiType: 1
 --- !u!1 &1683274099
 GameObject:
   m_ObjectHideFlags: 0
