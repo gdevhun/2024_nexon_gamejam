@@ -53,7 +53,7 @@ public class BallManager : MonoBehaviour
         {
             float currentSpeed = ballRb.velocity.magnitude;
 
-            if (currentSpeed < minSpeed && currentSpeed >= 2f)
+            if (currentSpeed < minSpeed && currentSpeed >= 1f)
             {
                 isSlow = true;
             }
@@ -159,7 +159,7 @@ public class BallManager : MonoBehaviour
             float directionY = 0.85f;
 
             Vector2 randomDirection = new Vector2(directionX, directionY).normalized;
-            Vector2 forceToAdd = randomDirection * 6f;
+            Vector2 forceToAdd = randomDirection * 7f;
 
             ballRb.AddForce(forceToAdd, ForceMode2D.Impulse);
 
