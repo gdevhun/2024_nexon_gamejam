@@ -22,10 +22,6 @@ public class BallManager : MonoBehaviour
 
     private Animator anim;
 
-    private Vector3 lastPosition;
-    private float stationaryTime;
-
-
     enum BallState
     {
         WAITING,
@@ -40,21 +36,13 @@ public class BallManager : MonoBehaviour
         ballRb = GetComponent<Rigidbody2D>();
         ballSR = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        anim.keepAnimatorStateOnDisable = true;
-
         ballState = BallState.WAITING;
-
-        int random = Random.Range(0, 2);
-
-        LastPlayerType = (random == 0)? PlayerType.Player1 : PlayerType.Player2;
-
-        if(random != 0)
-        {
-            anim.SetBool("isBlueBall", false);
-        }
+        LastPlayerType = PlayerType.None;
 
         lineObject = transform.Find("Line").gameObject;
         gaugeBack = transform.Find("gauge_back").gameObject;
+        anim.keepAnimatorStateOnDisable = true;
+
 
         //StartCoroutine(StateMachine());
     }
@@ -65,33 +53,13 @@ public class BallManager : MonoBehaviour
         {
             float currentSpeed = ballRb.velocity.magnitude;
 
-            if (currentSpeed < minSpeed && currentSpeed >= 0.5f)
+            if (currentSpeed < minSpeed && currentSpeed >= 2f)
             {
                 isSlow = true;
             }
         }
 
         StartCoroutine(ballState.ToString());
-
-
-        if (ballState == BallState.ROLLING)
-        {
-            if (Vector3.Distance(transform.position, lastPosition) < 1f)
-            {
-                stationaryTime += Time.deltaTime;
-                if (stationaryTime >= 3f)
-                {
-                    ballState = BallState.GOAL;
-                    stationaryTime = 0f;
-                }
-            }
-            else
-            {
-                lastPosition = transform.position;
-                stationaryTime = 0f;
-            }
-        }
-
 
     }
 
@@ -191,7 +159,7 @@ public class BallManager : MonoBehaviour
             float directionY = 0.85f;
 
             Vector2 randomDirection = new Vector2(directionX, directionY).normalized;
-            Vector2 forceToAdd = randomDirection * 7f;
+            Vector2 forceToAdd = randomDirection * 6f;
 
             ballRb.AddForce(forceToAdd, ForceMode2D.Impulse);
 
