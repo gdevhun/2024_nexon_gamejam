@@ -62,13 +62,13 @@ public class SkillManager : SingletonBehaviour<SkillManager>
 
             int random = Random.Range(0, 2); // �ڽ� ������ �°� ���� �� ����
 
-            Transform attackedChild = targetSwing.transform.GetChild(0); //�� �� �ϳ� attacked ����
+            Transform attackedChild = targetSwing.transform.GetChild(random); //�� �� �ϳ� attacked ����
             
             attackedSwing = attackedChild.GetComponent<Swing>();
             attackedSwing.enabled = false;
 
             starfish.transform.position = attackedChild.position;
-
+                   
             starfish.SetActive(true);
         }
 
