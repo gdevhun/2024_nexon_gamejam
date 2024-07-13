@@ -17,7 +17,9 @@ public class BallManager : MonoBehaviour
     private GameObject lineObject;
     private GameObject gaugeBack;
 
-
+    private bool isSlow = false;
+    private float minSpeed = 3f;
+    public float maxSpeed = 30f;
     
     enum BallState
     {
@@ -38,23 +40,41 @@ public class BallManager : MonoBehaviour
         lineObject = transform.Find("Line").gameObject;
         gaugeBack = transform.Find("gauge_back").gameObject;
         
-        StartCoroutine(StateMachine());
+        //StartCoroutine(StateMachine());
     }
 
     private void Update()
     {
-        if (ballRb.velocity.magnitude < 2f && ballState == BallState.ROLLING)
+        if (!isSlow)
         {
-            ballRb.AddForce(new Vector2(2,1) * 2f, ForceMode2D.Impulse);
+            float currentSpeed = ballRb.velocity.magnitude;
+
+            if (currentSpeed < minSpeed && currentSpeed >= 2f)
+            {
+                isSlow = true;
+            }
+        }
+        StartCoroutine(ballState.ToString());
+
+    }
+
+    private void FixedUpdate()
+    {
+        if (ballRb.velocity.magnitude > maxSpeed)
+        {
+            ballRb.velocity = ballRb.velocity.normalized * maxSpeed;
         }
     }
+    /*
     IEnumerator StateMachine(){
         while(true){
            //Debug.Log("Current State: " + ballState.ToString());
 
             yield return StartCoroutine(ballState.ToString());
         }
-    }
+    }*/
+
+
 
     IEnumerator WAITING(){ //게임 초기화
         gameObject.layer = 6; 
@@ -67,25 +87,27 @@ public class BallManager : MonoBehaviour
         //Debug.Log("Velocity set to: " + ballRb.velocity.ToString());
         while (ballState == BallState.WAITING)
         {
+            Vector2 direction = lineObject.GetComponent<gaugeRotate>().GetCurrentDirection();
+          
+
             objSetActive(true);
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
+            ballState = BallState.ROLLING;
+            gameObject.layer = 0;
+            ballRb.gravityScale = 4f;
+            objSetActive(false);
+
+
             // 공 발사
-            launchBall();
+            launchBall(direction);
         }
     }
 
-    void launchBall()
+    public void launchBall(Vector2 direction)
     {
-        Vector2 direction = lineObject.GetComponent<gaugeRotate>().GetCurrentDirection();
-
-        objSetActive(false);
         ballRb.velocity = Vector2.zero;
         ballRb.AddForce(direction * throwingForce, ForceMode2D.Impulse);
-
-        gameObject.layer = 0;
-        ballRb.gravityScale = 4f;
-        ballState = BallState.ROLLING;
     }
     void objSetActive(bool active)
     {
@@ -102,13 +124,12 @@ public class BallManager : MonoBehaviour
     IEnumerator GOAL(){
         while(ballState == BallState.GOAL)
         {
-            //goal 세레모니?
-            //Debug.Log("Goal State Entered");
-            yield return new WaitForSeconds(2f); //세레모니 기다리는 시간?
             ballState = BallState.WAITING;
+            yield return null;
+
         }
     }
-    
+ 
     void OnCollisionEnter2D(Collision2D other)
     {
        
@@ -122,6 +143,21 @@ public class BallManager : MonoBehaviour
         {
             LastPlayerType = PlayerType.Player2;
             ballSR.sprite = ballSprite[1];
+        }
+
+        else if (isSlow && gameObject.layer != 8)
+        {
+            ballRb.velocity = Vector2.zero;
+
+            float directionX = (Random.value < 0.5f) ? 1f : -1f;
+            float directionY = 0.8f;
+
+            Vector2 randomDirection = new Vector2(directionX, directionY).normalized;
+            Vector2 forceToAdd = randomDirection * 6f;
+
+            ballRb.AddForce(forceToAdd, ForceMode2D.Impulse);
+
+            isSlow = false;
         }
     }
 
