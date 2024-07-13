@@ -59,7 +59,7 @@ public class GameManager : SingletonBehaviour<GameManager>
         }
         else if (seconds == 60)
         {
-            eventManager.GetComponent<EventManager>().HelicopterEvent();
+            eventManager.GetComponent<EventManager>().HelicopterEvent(1);
             StartCoroutine(DisplayGimicEventImg(2));
         }
         else if (seconds == 80)
@@ -69,7 +69,7 @@ public class GameManager : SingletonBehaviour<GameManager>
         }
         else if (seconds == 100)
         {
-            eventManager.GetComponent<EventManager>().HelicopterEvent();
+            eventManager.GetComponent<EventManager>().HelicopterEvent(2);
             StartCoroutine(DisplayGimicEventImg(4));
         }
         else if (seconds == 120)

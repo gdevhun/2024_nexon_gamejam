@@ -8,15 +8,20 @@ public class EventManager : MonoBehaviour
 {
     public Image fadeImage;
     public GameObject helicopter;
+    public List<GameObject> itemList;
     
     public GameObject waveObj;
     public List<GameObject> waveChangeObj;
+
+    public List<GameObject> crabObj;
     
     readonly WaitForSeconds halfsec =new WaitForSeconds(0.5f);
     readonly WaitForSeconds onesec =new WaitForSeconds(1f);
     readonly WaitForSeconds twosec =new WaitForSeconds(2f);
     readonly WaitForSeconds twodothalfsec =new WaitForSeconds(2.5f);
-    private void Update()
+    
+    /*  //FOR TEST
+     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -24,47 +29,47 @@ public class EventManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            HelicopterEvent();
+            HelicopterEvent(1);
         }
-    }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            CrabEvent();
+        }
+    }*/
 
-    public void WaveEvent()  //파도 기믹이벤트
-    {
-        WaveOccur();
-    }
+    public void WaveEvent() => WaveOccur();  //파도 기믹이벤트
+    public void HelicopterEvent(int idx) => StartCoroutine(HelicopterRoutine(idx));//헬리톱터 이벤트
+    public void CrabEvent() =>CrabsMove(); //꽃게 이벤트
 
-    public void HelicopterEvent() //헬리톱터 이벤트
-    {
-        StartCoroutine(HelicopterRoutine());
-        //fade는 1초에 걸쳐 255에서 0으로
-        //끝나면 바로 헬리콥터는 2.5초에 걸쳐 
-        //Vector3(12,2.5,0)
-        //Vector3(-12,2.5,0) 로 이동
-    }
-
-    public void CrabEvent() //꽃게 이벤트
-    {
-        
-    }
-
-    private IEnumerator HelicopterRoutine()
+    private IEnumerator HelicopterRoutine(int idx)
     {
         // 페이드 인
         fadeImage.color = new Color(0, 0, 0, 0); // 페이드 이미지 초기화
         fadeImage.gameObject.SetActive(true);
-        fadeImage.DOFade(1, 2.2f); // 2.2초 동안 페이드 인
-        yield return onesec; 
+        fadeImage.DOFade(1, 2.2f); // 2초 동안 페이드 인
+        yield return halfsec; 
 
         // 헬리콥터 이동
         helicopter.transform.localPosition = new Vector3(12, 2.5f, 0); // 초기 위치 설정
         helicopter.SetActive(true);
         helicopter.transform.DOMoveX(-12, 2f); // 2초 동안 이동
-        yield return twodothalfsec; 
+        yield return twosec; 
+        
+        if (idx == 1)
+        {
+            itemList[0].SetActive(true);
+        }
+        else if (idx == 2)
+        {
+            itemList[1].SetActive(true);
+        }
 
+        
         // 페이드 아웃
         fadeImage.DOFade(0, 1.5f).OnComplete(() => fadeImage.gameObject.SetActive(false)); // 1.5초 동안 페이드 아웃
         yield return twosec; 
         helicopter.SetActive(false);
+        
     }
     private void WaveOccur()
     {
@@ -104,5 +109,32 @@ public class EventManager : MonoBehaviour
                 obj.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f); // 알파값을 1로 설정
             });
         }
+    }
+
+    private void CrabsMove()
+    {
+        // leftCrab 이동 (2초 동안)
+        crabObj[0].transform.localPosition = new Vector3(-15, 1.86f, 0); // 초기 위치 설정
+        crabObj[0].SetActive(true);
+        crabObj[0].transform.DOMove(new Vector3(-9.3f, 1.86f, 0), 2f).OnComplete(() =>
+        {
+            // 1초 대기 후 원래 위치로 돌아가기
+            StartCoroutine(WaitAndMoveBack(crabObj[0], new Vector3(-15, 1.86f, 0), 2f));
+        });
+
+        // rightCrab 이동 (2.5초 동안)
+        crabObj[1].transform.localPosition = new Vector3(8.5f, 2f, 0); // 초기 위치 설정
+        crabObj[1].SetActive(true);
+        crabObj[1].transform.DOMove(new Vector3(0.68f, 2.9f, 0), 2.5f).OnComplete(() =>
+        {
+            // 1초 대기 후 원래 위치로 돌아가기
+            StartCoroutine(WaitAndMoveBack(crabObj[1], new Vector3(8.5f, 2f, 0), 2.5f));
+        });
+    }
+
+    private IEnumerator WaitAndMoveBack(GameObject crab, Vector3 originalPosition, float duration)
+    {
+        yield return onesec; // 1초 대기
+        crab.transform.DOMove(originalPosition, duration);
     }
 }
