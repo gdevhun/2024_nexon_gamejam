@@ -11,6 +11,7 @@ public class BallManager : MonoBehaviour
 
     private Rigidbody2D ballRb;
     private GameObject lineObject;
+    private GameObject gaugeBack;
     private Transform lineTransform;
 
 
@@ -30,6 +31,7 @@ public class BallManager : MonoBehaviour
         LastPlayerType = PlayerType.None;
 
         lineObject = transform.Find("Line").gameObject;
+        gaugeBack = transform.Find("gauge_back").gameObject;
         if (lineObject != null) lineTransform = lineObject.transform;
         
         StartCoroutine(StateMachine());
@@ -49,23 +51,30 @@ public class BallManager : MonoBehaviour
 
         while (ballState == BallState.WAITING)
         {
-            lineObject.SetActive(true);
-            
-
+            objSetActive(true);
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
-            Vector2 direction = lineObject.GetComponent<gagueRotate>().GetCurrentDirection();
-
             // 공 발사
-            lineObject.SetActive(false);
-            ballRb.velocity = Vector2.zero; 
-            //ballRb.AddForce(direction * throwingForce, ForceMode2D.Impulse);
-            
-            gameObject.layer = 0; 
-            ballRb.gravityScale = 4f;
-            ballState = BallState.ROLLING;
-            yield return null;
+            launchBall();
         }
+    }
+
+    void launchBall()
+    {
+        Vector2 direction = lineObject.GetComponent<gagueRotate>().GetCurrentDirection();
+
+        objSetActive(false);
+        ballRb.velocity = Vector2.zero;
+        ballRb.AddForce(direction * throwingForce, ForceMode2D.Impulse);
+
+        gameObject.layer = 0;
+        ballRb.gravityScale = 4f;
+        ballState = BallState.ROLLING;
+    }
+    void objSetActive(bool active)
+    {
+        lineObject.SetActive(active);
+        gaugeBack.SetActive(active);
     }
     IEnumerator ROLLING(){
         while(ballState == BallState.ROLLING){
@@ -84,17 +93,17 @@ public class BallManager : MonoBehaviour
     
     void OnCollisionEnter2D(Collision2D other)
     {
-        /*
+       
         if (other.gameObject.CompareTag("player1"))
         {
-            //lastTouch = LastTouch.player1;
-            // player1 애니메이션으로 변경하는 코드를 여기에 추가
+            LastPlayerType = PlayerType.Player1;
+             
         }
         else if (other.gameObject.CompareTag("player2"))
         {
-            //lastTouch = LastTouch.player2;
-            // player2 애니메이션으로 변경하는 코드를 여기에 추가
-        }*/
+            LastPlayerType = PlayerType.Player2;
+          
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
