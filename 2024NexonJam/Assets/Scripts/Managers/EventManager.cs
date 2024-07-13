@@ -3,29 +3,43 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class EventManager : MonoBehaviour
 {
+    public Image fadeImage;
+    public GameObject helicopter;
+    
     public GameObject waveObj;
     public List<GameObject> waveChangeObj;
-    WaitForSeconds _waitForSeconds =new WaitForSeconds(2.6f);
-    WaitForSeconds _waitForSeconds2 =new WaitForSeconds(0.5f);
+    
+    readonly WaitForSeconds halfsec =new WaitForSeconds(0.5f);
+    readonly WaitForSeconds onesec =new WaitForSeconds(1f);
+    readonly WaitForSeconds twosec =new WaitForSeconds(2f);
+    readonly WaitForSeconds twodothalfsec =new WaitForSeconds(2.5f);
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
-            WaveOccur();
+            WaveEvent();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            HelicopterEvent();
         }
     }
 
     public void WaveEvent()  //파도 기믹이벤트
     {
-        
+        WaveOccur();
     }
 
     public void HelicopterEvent() //헬리톱터 이벤트
     {
-        
+        StartCoroutine(HelicopterRoutine());
+        //fade는 1초에 걸쳐 255에서 0으로
+        //끝나면 바로 헬리콥터는 2.5초에 걸쳐 
+        //Vector3(12,2.5,0)
+        //Vector3(-12,2.5,0) 로 이동
     }
 
     public void CrabEvent() //꽃게 이벤트
@@ -33,6 +47,25 @@ public class EventManager : MonoBehaviour
         
     }
 
+    private IEnumerator HelicopterRoutine()
+    {
+        // 페이드 인
+        fadeImage.color = new Color(0, 0, 0, 0); // 페이드 이미지 초기화
+        fadeImage.gameObject.SetActive(true);
+        fadeImage.DOFade(1, 2.2f); // 2.2초 동안 페이드 인
+        yield return onesec; 
+
+        // 헬리콥터 이동
+        helicopter.transform.localPosition = new Vector3(12, 2.5f, 0); // 초기 위치 설정
+        helicopter.SetActive(true);
+        helicopter.transform.DOMoveX(-12, 2f); // 2초 동안 이동
+        yield return twodothalfsec; 
+
+        // 페이드 아웃
+        fadeImage.DOFade(0, 1.5f).OnComplete(() => fadeImage.gameObject.SetActive(false)); // 1.5초 동안 페이드 아웃
+        yield return twosec; 
+        helicopter.SetActive(false);
+    }
     private void WaveOccur()
     {
         // 초기 위치로 설정
@@ -50,7 +83,7 @@ public class EventManager : MonoBehaviour
 
     private IEnumerator ChangeMap()
     {
-        yield return _waitForSeconds2;
+        yield return halfsec;
         foreach (var obj in waveChangeObj)
         {
             obj.SetActive(true);
@@ -59,7 +92,7 @@ public class EventManager : MonoBehaviour
 
     private IEnumerator ResetMap()
     {
-        yield return _waitForSeconds; 
+        yield return twodothalfsec; 
         
         foreach (var obj in waveChangeObj)
         {
