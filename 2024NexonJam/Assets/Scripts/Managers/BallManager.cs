@@ -9,7 +9,6 @@ public class BallManager : MonoBehaviour
 {
     public PlayerType LastPlayerType;
     public float throwingForce = 10f;
-    public Sprite[] ballSprite;
 
     private SpriteRenderer ballSR;
 
@@ -20,7 +19,9 @@ public class BallManager : MonoBehaviour
     private bool isSlow = false;
     private float minSpeed = 3f;
     public float maxSpeed = 30f;
-    
+
+    private Animator anim;
+
     enum BallState
     {
         WAITING,
@@ -34,12 +35,15 @@ public class BallManager : MonoBehaviour
     {
         ballRb = GetComponent<Rigidbody2D>();
         ballSR = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
         ballState = BallState.WAITING;
         LastPlayerType = PlayerType.None;
 
         lineObject = transform.Find("Line").gameObject;
         gaugeBack = transform.Find("gauge_back").gameObject;
-        
+        anim.keepAnimatorStateOnDisable = true;
+
+
         //StartCoroutine(StateMachine());
     }
 
@@ -136,14 +140,15 @@ public class BallManager : MonoBehaviour
        
         if (other.gameObject.CompareTag("player1"))
         {
-            LastPlayerType = PlayerType.Player1;
-            ballSR.sprite = ballSprite[0];
-             
+            anim.SetBool("isBlueBall", true);
+
+            LastPlayerType = PlayerType.Player1;      
         }
         else if (other.gameObject.CompareTag("player2"))
         {
+            anim.SetBool("isBlueBall", false);
+
             LastPlayerType = PlayerType.Player2;
-            ballSR.sprite = ballSprite[1];
         }
 
         else if (isSlow && gameObject.layer != 8)
@@ -171,16 +176,20 @@ public class BallManager : MonoBehaviour
 
             if (other.gameObject.CompareTag("player1"))
             {
+                anim.SetBool("isBlueBall", true);
+
+
                 LastPlayerType = PlayerType.Player1;
-                ballSR.sprite = ballSprite[0];
                 GameManager.Instance.AddScore(PlayerType.Player2, 60);//임시 10점
+
 
             }
             else
             {
+                anim.SetBool("isBlueBall", false);
+
                 LastPlayerType = PlayerType.Player2;
-                ballSR.sprite = ballSprite[1];
-                GameManager.Instance.AddScore(PlayerType.Player1, 60);//임시 10점
+                GameManager.Instance.AddScore(PlayerType.Player1, 60);//임시 
             }
 
         }

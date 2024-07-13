@@ -4,14 +4,13 @@ using UnityEngine;
 using DG.Tweening;
 using Unity.VisualScripting;
 
+
 public class catchMonkey : MonoBehaviour
 {
     DG.Tweening.Sequence startSequence;
     GameObject ball;
-    SpriteRenderer ballSR;
     SpriteRenderer crabSR;
-
-    public Sprite ballHipSprite;
+    BallManager ballManager;
 
     public Sprite[] ballType;
     private Sprite original;
@@ -35,7 +34,7 @@ public class catchMonkey : MonoBehaviour
         if (collision.gameObject.CompareTag("ball"))
         {
             ball = collision.gameObject;
-            ballSR = collision.GetComponent<SpriteRenderer>();
+            ballManager = ball.GetComponent<BallManager>();
             startSequence.Append(monkeySequence());
 
         }
@@ -47,12 +46,12 @@ public class catchMonkey : MonoBehaviour
         return DOTween.Sequence()
         .OnStart(() => {
             ball.SetActive(false);
-            if (ballSR.sprite == ballHipSprite)
+            if (ballManager.LastPlayerType == PlayerType.Player2)
             {
-                crabSR.sprite = ballType[0];
+                crabSR.sprite = ballType[1];
             }
             else
-                crabSR.sprite = ballType[1];
+                crabSR.sprite = ballType[0];
         })
         .Append(transform.DOShakePosition(1.5f, 0.5f, 10, 5, false, true)) // 진동 효과
         .OnComplete(() => {
