@@ -1,12 +1,11 @@
 using UnityEngine;
 
-public class gagueRotate : MonoBehaviour
+public class gaugeRotate : MonoBehaviour
 {
     public float startAngle = 15f; 
-
     public float endAngle = 165f; 
     public float rotationSpeed = 50f; 
-    private float currentAngle = 90f; 
+    private float currentAngle = 0f; 
     private bool rotatingleft = true; 
 
     void Update()
@@ -34,7 +33,7 @@ public class gagueRotate : MonoBehaviour
     }
     public Vector2 GetCurrentDirection()
     {
-        Vector2 direction = Quaternion.Euler(0, 0, currentAngle) * Vector2.right;
+        Vector2 direction = Quaternion.Euler(0, 0, currentAngle) * Vector2.up;
         return direction.normalized;
     }
 }
