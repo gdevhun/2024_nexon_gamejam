@@ -46,17 +46,17 @@ public class holder : MonoBehaviour
 
     private void MoveUp()
     {
-        if (targetPosition.x <= 0.5)
+        if (targetPosition.y <= 1.5f)
         {
-            targetPosition += new Vector3(0.1f, 0, 0);
+            targetPosition += new Vector3(0, 0.1f, 0);
         }
     }
 
     private void MoveDown()
     {
-        if (targetPosition.x >= -0.5)
+        if (targetPosition.y >= -1.5f)
         {
-            targetPosition += new Vector3(-0.1f, 0, 0);
+            targetPosition += new Vector3(0, -0.1f, 0);
         }
     }
 }
