@@ -2,18 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
+using static UnityEditorInternal.VersionControl.ListControl;
 
 public class BallManager : MonoBehaviour
 {
     public PlayerType LastPlayerType;
     public float throwingForce = 10f;
-    
+    public Sprite[] ballSprite;
+
+    private SpriteRenderer ballSR;
 
     private Rigidbody2D ballRb;
     private GameObject lineObject;
     private GameObject gaugeBack;
 
 
+    
     enum BallState
     {
         WAITING,
@@ -26,6 +31,7 @@ public class BallManager : MonoBehaviour
     void Start()
     {
         ballRb = GetComponent<Rigidbody2D>();
+        ballSR = GetComponent<SpriteRenderer>();
         ballState = BallState.WAITING;
         LastPlayerType = PlayerType.None;
 
@@ -35,18 +41,30 @@ public class BallManager : MonoBehaviour
         StartCoroutine(StateMachine());
     }
 
+    private void Update()
+    {
+        if (ballRb.velocity.magnitude < 2f && ballState == BallState.ROLLING)
+        {
+            ballRb.AddForce(new Vector2(2,1) * 2f, ForceMode2D.Impulse);
+        }
+    }
     IEnumerator StateMachine(){
         while(true){
+           //Debug.Log("Current State: " + ballState.ToString());
+
             yield return StartCoroutine(ballState.ToString());
         }
     }
 
     IEnumerator WAITING(){ //게임 초기화
         gameObject.layer = 6; 
-        ballRb.velocity = Vector2.zero; 
         ballRb.gravityScale = 0f;
+        ballRb.velocity = Vector2.zero;
         transform.position = new Vector3(0f, -4f, 0f);
-
+   
+        //Debug.Log("Waiting State Entered");
+        //Debug.Log("Position set to: " + transform.position.ToString());
+        //Debug.Log("Velocity set to: " + ballRb.velocity.ToString());
         while (ballState == BallState.WAITING)
         {
             objSetActive(true);
@@ -82,8 +100,10 @@ public class BallManager : MonoBehaviour
     
 
     IEnumerator GOAL(){
-        while(ballState == BallState.GOAL){
+        while(ballState == BallState.GOAL)
+        {
             //goal 세레모니?
+            //Debug.Log("Goal State Entered");
             yield return new WaitForSeconds(2f); //세레모니 기다리는 시간?
             ballState = BallState.WAITING;
         }
@@ -95,12 +115,13 @@ public class BallManager : MonoBehaviour
         if (other.gameObject.CompareTag("player1"))
         {
             LastPlayerType = PlayerType.Player1;
+            ballSR.sprite = ballSprite[0];
              
         }
         else if (other.gameObject.CompareTag("player2"))
         {
             LastPlayerType = PlayerType.Player2;
-          
+            ballSR.sprite = ballSprite[1];
         }
     }
 
@@ -111,5 +132,10 @@ public class BallManager : MonoBehaviour
             ballRb.velocity = Vector2.zero;
             ballState = BallState.GOAL;
         }
+    }
+
+    private void OnBecameInvisible2D()
+    {
+        ballState = BallState.WAITING;
     }
 }
