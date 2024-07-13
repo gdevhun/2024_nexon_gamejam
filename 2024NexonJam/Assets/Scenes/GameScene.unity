@@ -704,7 +704,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 1e95e00b1eb6cee46ac6e870527cfc07, type: 3}
-  m_Color: {r: 0.19811311, g: 0.2376751, b: 0.5999999, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -926,8 +926,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeft: 1
-  hole: {fileID: 0}
-  snail: {fileID: 0}
+  hole: {fileID: 292376346}
+  snail: {fileID: 536314679}
   isSliding: 0
   timeInTrigger: 0
   isInTrigger: 0
@@ -1278,8 +1278,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f58e1e2a3b0ccbb4f9bfd2ed7c9085cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballHipSprite: {fileID: 0}
-  ballType: []
+  ballHipSprite: {fileID: 21300000, guid: fcc87409a409fc54da4ec36a619a29b1, type: 3}
+  ballType:
+  - {fileID: 21300000, guid: 3c53a97bb4afa8e43b6ebfa0a33efa5c, type: 3}
+  - {fileID: 21300000, guid: 1c7efc5f1379a5145bbdfea47f5d65f0, type: 3}
 --- !u!61 &347994040
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2453,8 +2455,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeft: 0
-  hole: {fileID: 0}
-  snail: {fileID: 0}
+  hole: {fileID: 1674793457}
+  snail: {fileID: 54621277}
   isSliding: 0
   timeInTrigger: 0
   isInTrigger: 0
@@ -2602,7 +2604,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 94c4068c27293294da8f8b81d4db3b50, type: 3}
-  m_Color: {r: 0.4566037, g: 0.4566037, b: 0.4566037, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -4232,7 +4234,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 6d873fc7bbc91e743952d602e63ffc14, type: 3}
-  m_Color: {r: 0.19811311, g: 0.2376751, b: 0.5999999, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -6751,6 +6753,7 @@ GameObject:
   - component: {fileID: 1821996293}
   - component: {fileID: 1821996295}
   - component: {fileID: 1821996294}
+  - component: {fileID: 1821996296}
   m_Layer: 0
   m_Name: fingerR
   m_TagString: Untagged
@@ -6870,6 +6873,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1821996296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821996292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f58e1e2a3b0ccbb4f9bfd2ed7c9085cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ballHipSprite: {fileID: 21300000, guid: fcc87409a409fc54da4ec36a619a29b1, type: 3}
+  ballType:
+  - {fileID: 21300000, guid: f4261122b80a00848baee5528ab81b32, type: 3}
+  - {fileID: 21300000, guid: e7a5df30ae66f164d8c2f71448ff8d17, type: 3}
 --- !u!1 &1825028308
 GameObject:
   m_ObjectHideFlags: 0
@@ -8788,7 +8807,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 743e67b35876de44cb1771b3c47723f3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
