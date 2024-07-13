@@ -122,7 +122,7 @@ public class GameManager : SingletonBehaviour<GameManager>
             GimicEventImg[num - 1].SetActive(false); // 비활성화
         }
     }
-
+ 
     public void RandomGimicEvent()
     {   //랜덤으로 기믹 이벤트 발생 함수
         // 40,80,120 초 도달
