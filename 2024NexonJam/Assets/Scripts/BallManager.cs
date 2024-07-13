@@ -37,16 +37,21 @@ public class BallManager : MonoBehaviour
 
     IEnumerator StateMachine(){
         while(true){
+            Debug.Log("Current State: " + ballState.ToString());
+
             yield return StartCoroutine(ballState.ToString());
         }
     }
 
     IEnumerator WAITING(){ //게임 초기화
         gameObject.layer = 6; 
-        ballRb.velocity = Vector2.zero; 
         ballRb.gravityScale = 0f;
+        ballRb.velocity = Vector2.zero;
         transform.position = new Vector3(0f, -4f, 0f);
-
+   
+        Debug.Log("Waiting State Entered");
+        Debug.Log("Position set to: " + transform.position.ToString());
+        Debug.Log("Velocity set to: " + ballRb.velocity.ToString());
         while (ballState == BallState.WAITING)
         {
             objSetActive(true);
@@ -82,8 +87,10 @@ public class BallManager : MonoBehaviour
     
 
     IEnumerator GOAL(){
-        while(true){
+        while(ballState == BallState.GOAL)
+        {
             //goal 세레모니?
+            Debug.Log("Goal State Entered");
             yield return new WaitForSeconds(2f); //세레모니 기다리는 시간?
             ballState = BallState.WAITING;
         }
@@ -111,5 +118,10 @@ public class BallManager : MonoBehaviour
             ballRb.velocity = Vector2.zero;
             ballState = BallState.GOAL;
         }
+    }
+
+    private void OnBecameInvisible2D()
+    {
+        ballState = BallState.WAITING;
     }
 }
