@@ -12,27 +12,20 @@ public class slidingEvent : MonoBehaviour
 
     public Transform hole;
     public Transform snail;
+
     private float dir = 1f;
     private bool isSliding = false;
+    SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
         dir = isLeft ? 1f : -1f;
 
-        flipPos(hole);
-        flipPos(snail);
 
         DOTween.Init(false, true, LogBehaviour.ErrorsOnly);
 
         //만약 왼쪽 슬라이드가 아니라면 hole 위치 좌우반전해줌
-    }
-
-    void flipPos(Transform transform)
-    {
-        Vector3 position = transform.position;
-        position.x = position.x * dir;
-        transform.position = position;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -40,6 +33,8 @@ public class slidingEvent : MonoBehaviour
         {
             slidingBall = collision.gameObject;
             slidingRb = slidingBall.GetComponent<Rigidbody2D>();
+            spriteRenderer = slidingBall.GetComponent<SpriteRenderer>();
+
             slidingBall.layer = 8;
             isSliding = true;
             StartCoroutine(startSliding());
@@ -51,15 +46,19 @@ public class slidingEvent : MonoBehaviour
         //그러니까 slidingball이 layer slidingBall인 동안
         while (isSliding)
         {
+            yield return new WaitForSeconds(0.2f);
             slidingRb.velocity = Vector3.zero; //그 구멍에 멈춰세우고
             slidingRb.gravityScale = 0f;
-            slidingBall.transform.position = hole.position;
-            slidingBall.transform.DOScale(new Vector3(0.3f, 0.3f, 0f), 1f);
+            slidingBall.transform.position = new Vector3(hole.position.x*dir, hole.position.y, hole.position.z);
+            spriteRenderer.sortingOrder = 5;
+
+            slidingBall.transform.DOScale(new Vector3(0.3f, 0.3f, 0f), 0.5f);
             yield return new WaitForSeconds(0.2f);
             slidingBall.SetActive(false);
 
             //포지션 snail쪽으로 옮겨주고
-            slidingBall.transform.position = snail.position;
+            slidingBall.transform.position = new Vector3(snail.position.x * dir, snail.position.y, snail.position.z);
+            yield return new WaitForSeconds(0.5f);
 
             //켜주고
             slidingBall.SetActive(true);
@@ -67,8 +66,10 @@ public class slidingEvent : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
 
            
-            slidingBall.layer = 7;
+            slidingBall.layer = 0;
             slidingRb.gravityScale = 4f;
+            spriteRenderer.sortingOrder = 0;
+
             isSliding = false;
         }
     }

@@ -82,7 +82,7 @@ public class BallManager : MonoBehaviour
     
 
     IEnumerator GOAL(){
-        while(ballState == BallState.GOAL){
+        while(true){
             //goal 세레모니?
             yield return new WaitForSeconds(2f); //세레모니 기다리는 시간?
             ballState = BallState.WAITING;
