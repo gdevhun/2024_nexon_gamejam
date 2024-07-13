@@ -27,19 +27,12 @@ public class SkillManager : SingletonBehaviour<SkillManager>
     private bool[,] playerSkills = new bool[PlayerCount, SkillCount];
 
     private Swing attackedSwing;
-
-    public int testIndex;
-    public SkillType testType;
-
+    
     private void SetPlayerSkillState(int playerIndex, SkillType skillType, bool state)
     {
         playerSkills[playerIndex, (int)skillType] = state;
     }
-
-    private void Start()
-    {
-        StartCoroutine(HandleSkill(testIndex, testType));
-    }
+    
     private IEnumerator HandleSkill(int playerIndex, SkillType skillType)
     {
         SetPlayerSkillState(playerIndex, skillType, true);
@@ -48,28 +41,28 @@ public class SkillManager : SingletonBehaviour<SkillManager>
         {
             GameObject targetTurtle = playerIndex == 0 ? player2Turtle : player1Turtle;
             
-            //ÇØ´ç °ÅºÏÀÌÀÇ Á¤º¸°ª ¹Þ¾Æ¿À±â
+            //ï¿½Ø´ï¿½ ï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
             Renderer turtleRD = targetTurtle.GetComponent<Renderer>();
             Collider2D turtleCD = targetTurtle.GetComponent<Collider2D>();
             
-            //¹ÝÅõ¸íÈ­
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È­
             Color color = turtleRD.material.color;
             color.a = 0.5f;
             turtleRD.material.color = color;
              
-            //istriggered·Î ¹Ù²Ù±â
+            //istriggeredï¿½ï¿½ ï¿½Ù²Ù±ï¿½
             turtleCD.isTrigger = true;
         }
 
-        //double score´Â gamemanager¿¡¼­ ÀÚÃ¼ÀûÀ¸·Î ÇØ°á
+        //double scoreï¿½ï¿½ gamemanagerï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø°ï¿½
 
         if (skillType == SkillType.ThrowStarfish)
         {
             GameObject targetSwing = playerIndex == 0 ? playerSwing[1] : playerSwing[0];
 
-            int random = Random.Range(0, 2); // ÀÚ½Ä °³¼ö¿¡ ¸Â°Ô ·£´ý °ª ¼³Á¤
+            int random = Random.Range(0, 2); // ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-            Transform attackedChild = targetSwing.transform.GetChild(0); //µÑ Áß ÇÏ³ª attacked ´çÇÔ
+            Transform attackedChild = targetSwing.transform.GetChild(0); //ï¿½ï¿½ ï¿½ï¿½ ï¿½Ï³ï¿½ attacked ï¿½ï¿½ï¿½ï¿½
             
             attackedSwing = attackedChild.GetComponent<Swing>();
             attackedSwing.enabled = false;
@@ -85,16 +78,16 @@ public class SkillManager : SingletonBehaviour<SkillManager>
         {
             GameObject targetTurtle = playerIndex == 0 ? player2Turtle : player1Turtle;
 
-            //ÇØ´ç °ÅºÏÀÌÀÇ Á¤º¸°ª ¹Þ¾Æ¿À±â
+            //ï¿½Ø´ï¿½ ï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
             Renderer turtleRD = targetTurtle.GetComponent<Renderer>();
             Collider2D turtleCD = targetTurtle.GetComponent<Collider2D>();
 
-            //¹ÝÅõ¸íÈ­
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È­
             Color color = turtleRD.material.color;
             color.a = 1f;
             turtleRD.material.color = color;
 
-            //istriggered·Î ¹Ù²Ù±â
+            //istriggeredï¿½ï¿½ ï¿½Ù²Ù±ï¿½
             turtleCD.isTrigger = false;
         }
 
@@ -109,13 +102,13 @@ public class SkillManager : SingletonBehaviour<SkillManager>
         SetPlayerSkillState(playerIndex, skillType, false);
     }
 
-    //ÀÌ°É·Î ½ºÅ³»ç¿ë
+    //ï¿½Ì°É·ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ï¿½
     public void ActivateDoubleScore(int playerIndex) => StartCoroutine(HandleSkill(playerIndex, SkillType.DoubleScore));
     public void ActivateInvisibleTurtle(int playerIndex) => StartCoroutine(HandleSkill(playerIndex, SkillType.InvisibleTurtle));
     public void ActivateThrowStarFish(int playerIndex) => StartCoroutine(HandleSkill(playerIndex, SkillType.ThrowStarfish));
 
 
-    //ÀÌ°É·Î ½ºÅ³Ã¼Å©
+    //ï¿½Ì°É·ï¿½ ï¿½ï¿½Å³Ã¼Å©
     public bool IsDoubleScoreActive(int playerIndex) => playerSkills[playerIndex, (int)SkillType.DoubleScore];
     public bool IsInvisibleTurtleActive(int playerIndex) => playerSkills[playerIndex, (int)SkillType.InvisibleTurtle];
     public bool IsThrowStarFishActive(int playerIndex) => playerSkills[playerIndex, (int)SkillType.ThrowStarfish];

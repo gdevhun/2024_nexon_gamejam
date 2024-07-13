@@ -23,39 +23,54 @@ public class PlayerInventory : MonoBehaviour
 
     private void Update()
     {
-        if (playerType == PlayerType.Player1)
+        if (playerType == PlayerType.Player1 && Input.GetKeyDown(KeyCode.Q))
         {
-            if (Input.GetKeyDown(KeyCode.Alpha5))
-            {
-                UseSkill();
-            }
+            UseSkill(0);
         }
-        else if (playerType == PlayerType.Player2)
+        else if (playerType == PlayerType.Player2 && Input.GetKeyDown(KeyCode.Backslash))
         {
-            if (Input.GetKeyDown(KeyCode.Alpha6))
-            {
-                UseSkill();
-            }
+            UseSkill(1);
         }
     }
 
-    private void UseSkill()
+    private void UseSkill(int playerIndex)
     {
-        if (skillSlots[2].sprite != null)
+        if (skillSlots[2].sprite == null) return;
+
+        // 이미 스킬이 활성화된 경우 반환
+        if (SkillManager.Instance.IsDoubleScoreActive(playerIndex) ||
+            SkillManager.Instance.IsInvisibleTurtleActive(playerIndex) ||
+            SkillManager.Instance.IsThrowStarFishActive(playerIndex))
         {
-
-            // 가장 아래의 스킬을 사용한 것으로 설정
-            skillSlots[2].sprite = null;
-
-            // 스킬 슬롯을 하나씩 아래로 당김
-            for (int i = skillSlots.Count - 1; i > 0; i--)
-            {
-                skillSlots[i].sprite = skillSlots[i - 1].sprite;
-            }
-
-            skillSlots[0].sprite = null;
+            return;
         }
+
+        string spriteName = skillSlots[2].sprite.name;
+        if (spriteName == "Skill_doublescore")
+        {
+            SkillManager.Instance.ActivateDoubleScore(playerIndex);
+        }
+        else if (spriteName == "Skill_ghost")
+        {
+            SkillManager.Instance.ActivateInvisibleTurtle(playerIndex);
+        }
+        else if (spriteName == "Skill_starfish")
+        {
+            SkillManager.Instance.ActivateThrowStarFish(playerIndex);
+        }
+
+        // 가장 아래의 스킬을 사용한 것으로 설정
+        skillSlots[2].sprite = null;
+
+        // 스킬 슬롯을 하나씩 아래로 당김
+        for (int i = skillSlots.Count - 1; i > 0; i--)
+        {
+            skillSlots[i].sprite = skillSlots[i - 1].sprite;
+        }
+
+        skillSlots[0].sprite = null;
     }
+    
 
     // 스킬을 슬롯에 추가하는 메서드
     public void AddSkill(Sprite skillSprite)

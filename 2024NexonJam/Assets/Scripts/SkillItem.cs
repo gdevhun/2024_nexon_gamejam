@@ -9,9 +9,9 @@ public class Item
 {
     public enum ItemType
     {
-        Item1,
-        Item2,
-        Item3
+        ghost,
+        doubleScore,
+        startfish
     }
 
     public ItemType itemType;
