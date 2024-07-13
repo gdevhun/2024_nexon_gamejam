@@ -2323,7 +2323,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1759943239}
         m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
         m_MethodName: SetBgmVolume
         m_Mode: 0
@@ -2663,6 +2663,100 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1729803454}
   m_CullTransparentMesh: 1
+--- !u!1 &1759943238
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1759943240}
+  - component: {fileID: 1759943239}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1759943239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1759943238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c0bb2eb9e8e55846819d4a4e89a4c50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgms:
+  - soundType: 0
+    clip: {fileID: 8300000, guid: 50b0893f83baa7e4fae44a7ce5246b2a, type: 3}
+  - soundType: 1
+    clip: {fileID: 8300000, guid: 2414047fdc13c884786a2b4e78bfab29, type: 3}
+  - soundType: 2
+    clip: {fileID: 8300000, guid: daa31583297539d4ca4b97146e9eaa52, type: 3}
+  sfxs:
+  - soundType: 3
+    clip: {fileID: 8300000, guid: 735af7e0d088952438aa05163416259e, type: 3}
+  - soundType: 4
+    clip: {fileID: 8300000, guid: ae134762222ff044dbfe125de9c2ac6f, type: 3}
+  - soundType: 5
+    clip: {fileID: 8300000, guid: 5e4a7359c7063af4cacad8bccbaf76ef, type: 3}
+  - soundType: 6
+    clip: {fileID: 8300000, guid: 42ceebfd15863aa448e6cf29542ec9f0, type: 3}
+  - soundType: 7
+    clip: {fileID: 8300000, guid: 67903bfbfb8500646b3dbb83a2e7359e, type: 3}
+  - soundType: 8
+    clip: {fileID: 8300000, guid: e83060bbf5adc4142a7b99bd3b0cb81b, type: 3}
+  - soundType: 9
+    clip: {fileID: 8300000, guid: aacfda7bf1042e54ebc63a96cf6bbecf, type: 3}
+  - soundType: 10
+    clip: {fileID: 8300000, guid: 2058605f846a095449e4d599aa71b21f, type: 3}
+  - soundType: 11
+    clip: {fileID: 8300000, guid: 94ba2446619650d4eaeda4aa8179dd2f, type: 3}
+  - soundType: 12
+    clip: {fileID: 8300000, guid: f8f028b88eca32a489d745f25a2382ff, type: 3}
+  - soundType: 13
+    clip: {fileID: 8300000, guid: 18c1599bd19058e4e90c233ac8ffdc58, type: 3}
+  - soundType: 14
+    clip: {fileID: 8300000, guid: a811a2ebc497280448d598b41f0ccacf, type: 3}
+  - soundType: 15
+    clip: {fileID: 8300000, guid: 871de55551ae2fc4399422cb3f9df084, type: 3}
+  - soundType: 16
+    clip: {fileID: 8300000, guid: c491dd84064c6b74fbcfb0d8775ce349, type: 3}
+  - soundType: 17
+    clip: {fileID: 8300000, guid: 36695af443bae87488dd2d106f01eea5, type: 3}
+  - soundType: 18
+    clip: {fileID: 8300000, guid: 9a37fac3e1433444b8f72133db6e98c3, type: 3}
+  - soundType: 19
+    clip: {fileID: 8300000, guid: 8ab28186937b3074f9154f71f24fd46c, type: 3}
+  - soundType: 20
+    clip: {fileID: 8300000, guid: c1526caf84466114abaa65fa5406d3c5, type: 3}
+  - soundType: 21
+    clip: {fileID: 8300000, guid: b372ea6eb25362a43a6975e1670f1b7d, type: 3}
+  bgmPlayer: {fileID: 0}
+  sfxPlayers: []
+  bgmVolume: 0
+  sfxVolume: 0
+--- !u!4 &1759943240
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1759943238}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1816434098
 GameObject:
   m_ObjectHideFlags: 0
@@ -2881,7 +2975,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1759943239}
         m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
         m_MethodName: SetSfxVolume
         m_Mode: 0
@@ -3052,3 +3146,4 @@ SceneRoots:
   - {fileID: 931860264}
   - {fileID: 1301996518}
   - {fileID: 1134730831}
+  - {fileID: 1759943240}

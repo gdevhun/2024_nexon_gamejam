@@ -17,7 +17,7 @@ public class SoundManager : SingletonBehaviour<SoundManager>
     private List<Sound> bgms = null;
     [SerializeField]
     private List<Sound> sfxs = null;
-    [SerializeField]
+    
     private AudioSource bgmPlayer = null;
     public List<AudioSource> sfxPlayers = new List<AudioSource>();
 

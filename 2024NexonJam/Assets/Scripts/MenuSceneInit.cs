@@ -8,7 +8,6 @@ public class MenuSceneInit : MonoBehaviour
     void Start()
     {
         // 메뉴bgm재생
-        SoundManager.Instance.StopBGM();
         SoundManager.Instance.PlayBGM(SoundType.메뉴씬Bgm);
     }
 
@@ -21,5 +20,6 @@ public class MenuSceneInit : MonoBehaviour
     {
         SoundManager.Instance.PlaySfx(SoundType.버튼클릭음sfx);
     }
+
     
 }
