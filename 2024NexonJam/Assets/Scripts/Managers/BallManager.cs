@@ -54,6 +54,7 @@ public class BallManager : MonoBehaviour
                 isSlow = true;
             }
         }
+
         StartCoroutine(ballState.ToString());
 
     }
