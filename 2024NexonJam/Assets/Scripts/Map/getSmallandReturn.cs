@@ -41,7 +41,7 @@ public class GetSmallAndReturn : MonoBehaviour
                 spriteRenderer.enabled = true;
             }
         }
-        
+         
         yield return new WaitForSeconds(1.15f);
         
         // 자식 오브젝트의 SpriteRenderer를 비활성화

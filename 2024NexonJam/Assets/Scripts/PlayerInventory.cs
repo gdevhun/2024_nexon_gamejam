@@ -25,14 +25,14 @@ public class PlayerInventory : MonoBehaviour
     {
         if (playerType == PlayerType.Player1)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.Alpha5))
             {
                 UseSkill();
             }
         }
         else if (playerType == PlayerType.Player2)
         {
-            if (Input.GetKeyDown(KeyCode.RightShift))
+            if (Input.GetKeyDown(KeyCode.Alpha6))
             {
                 UseSkill();
             }
@@ -60,7 +60,8 @@ public class PlayerInventory : MonoBehaviour
     // 스킬을 슬롯에 추가하는 메서드
     public void AddSkill(Sprite skillSprite)
     {
-        for (int i = 0; i < skillSlots.Count; i++)
+        // 가장 아래의 비어있는 슬롯에 추가
+        for (int i = skillSlots.Count - 1; i >= 0; i--)
         {
             if (skillSlots[i].sprite == null)
             {
