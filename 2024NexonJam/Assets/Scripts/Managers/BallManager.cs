@@ -151,10 +151,10 @@ public class BallManager : MonoBehaviour
             ballRb.velocity = Vector2.zero;
 
             float directionX = (Random.value < 0.5f) ? 1f : -1f;
-            float directionY = 0.8f;
+            float directionY = 0.9f;
 
             Vector2 randomDirection = new Vector2(directionX, directionY).normalized;
-            Vector2 forceToAdd = randomDirection * 6f;
+            Vector2 forceToAdd = randomDirection * 4f;
 
             ballRb.AddForce(forceToAdd, ForceMode2D.Impulse);
 
@@ -164,10 +164,25 @@ public class BallManager : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("goal"))
+        if (other.gameObject.CompareTag("player1") || other.gameObject.CompareTag("player2"))
         {
             ballRb.velocity = Vector2.zero;
             ballState = BallState.GOAL;
+
+            if (other.gameObject.CompareTag("player1"))
+            {
+                LastPlayerType = PlayerType.Player1;
+                ballSR.sprite = ballSprite[0];
+                GameManager.Instance.AddScore(PlayerType.Player2, 60);//임시 10점
+
+            }
+            else
+            {
+                LastPlayerType = PlayerType.Player2;
+                ballSR.sprite = ballSprite[1];
+                GameManager.Instance.AddScore(PlayerType.Player1, 60);//임시 10점
+            }
+
         }
     }
 
