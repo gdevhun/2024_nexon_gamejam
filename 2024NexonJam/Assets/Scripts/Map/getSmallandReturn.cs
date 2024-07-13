@@ -1,33 +1,67 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class getSmallandReturn : MonoBehaviour
+public class GetSmallAndReturn : MonoBehaviour
 {
-    Vector3 originalScale;
+    private SpriteRenderer _spriteRenderer;
+    public bool isWhaleType;
+    
+    private Vector3 originalScale;
     private bool isTriggered = false;
+
     private void Start()
     {
-        this.originalScale = transform.localScale; 
+        if (isWhaleType)
+        {
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+        originalScale = transform.localScale;
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!isTriggered && collision.gameObject.CompareTag("ball"))
         {
             isTriggered = true;
-            StartCoroutine(getSmallandBack());
+            if (isWhaleType)
+            {
+                StartCoroutine(WhaleAnimEvent());
+            }
+            StartCoroutine(GetSmallAndBack());
         }
     }
 
-    IEnumerator getSmallandBack()
+    private IEnumerator WhaleAnimEvent()
+    {
+        // 자식 오브젝트의 SpriteRenderer를 활성화
+        foreach (var spriteRenderer in GetComponentsInChildren<SpriteRenderer>())
+        {
+            if (spriteRenderer != _spriteRenderer)
+            {
+                spriteRenderer.enabled = true;
+            }
+        }
+        
+        yield return new WaitForSeconds(1.15f);
+        
+        // 자식 오브젝트의 SpriteRenderer를 비활성화
+        foreach (var spriteRenderer in GetComponentsInChildren<SpriteRenderer>())
+        {
+            if (spriteRenderer != _spriteRenderer)
+            {
+                spriteRenderer.enabled = false;
+            }
+        }
+    }
+
+    private IEnumerator GetSmallAndBack()
     {
         while (isTriggered)
         {
             isTriggered = false;
-            this.transform.localScale = new Vector3(originalScale.x*0.9f, originalScale.y*0.9f, originalScale.z);
+            transform.localScale = new Vector3(originalScale.x * 0.9f, originalScale.y * 0.9f, originalScale.z);
             yield return new WaitForSeconds(0.1f);
-            this.transform.localScale = originalScale;
-
+            transform.localScale = originalScale;
             yield return null;
         }
     }
