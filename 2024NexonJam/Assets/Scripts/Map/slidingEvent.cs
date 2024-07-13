@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEditor.Experimental.GraphView;
+using UnityEngine.PlayerLoop;
 
 public class slidingEvent : MonoBehaviour
 {
@@ -14,8 +15,12 @@ public class slidingEvent : MonoBehaviour
     public Transform snail;
 
     private float dir = 1f;
-    private bool isSliding = false;
+    public bool isSliding = false;
     SpriteRenderer spriteRenderer;
+
+    public float timeInTrigger = 0f;
+    public bool isInTrigger = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -35,9 +40,32 @@ public class slidingEvent : MonoBehaviour
             slidingRb = slidingBall.GetComponent<Rigidbody2D>();
             spriteRenderer = slidingBall.GetComponent<SpriteRenderer>();
 
-            slidingBall.layer = 8;
-            isSliding = true;
-            StartCoroutine(startSliding());
+            //시간 재기 시작 
+            isInTrigger = true;
+            timeInTrigger = 0f;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("ball"))
+        {
+            isInTrigger = false;
+            timeInTrigger = 0f;
+        }
+
+    }
+
+    void Update()
+    {
+        if (isInTrigger)
+        {
+            timeInTrigger += Time.deltaTime;
+            if (timeInTrigger >= 0.15f && !isSliding)
+            {
+                isSliding = true;
+                StartCoroutine(startSliding());
+            }
         }
     }
 
@@ -46,6 +74,7 @@ public class slidingEvent : MonoBehaviour
         //그러니까 slidingball이 layer slidingBall인 동안
         while (isSliding)
         {
+            slidingBall.layer = 8;
             yield return new WaitForSeconds(0.2f);
             slidingRb.velocity = Vector3.zero; //그 구멍에 멈춰세우고
             slidingRb.gravityScale = 0f;
