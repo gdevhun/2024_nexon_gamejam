@@ -8,6 +8,8 @@ public class Swing : MonoBehaviour
     private JointMotor2D motor;
     public KeyCode activationKey;
 
+    public bool isAttacked = false;
+
     public float speed = 1000f;
 
     void Start()

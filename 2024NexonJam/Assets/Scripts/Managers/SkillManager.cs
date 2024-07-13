@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class SkillManager : SingletonBehaviour<SkillManager>
 {
-    private enum SkillType
+    public enum SkillType
     {
         DoubleScore=0,
         InvisibleTurtle=1,
@@ -12,18 +12,34 @@ public class SkillManager : SingletonBehaviour<SkillManager>
 
     public GameObject player1Turtle;
     public GameObject player2Turtle;
-    
+
+    public GameObject[] playerSwing;
+
+    public GameObject starfish;
+
+
+    private List<GameObject> swing;
+
     private const int PlayerCount = 2; 
     private const int SkillCount = 3; 
     private WaitForSeconds _5sec = new WaitForSeconds(5f);
 
     private bool[,] playerSkills = new bool[PlayerCount, SkillCount];
 
+    private Swing attackedSwing;
+
+    public int testIndex;
+    public SkillType testType;
+
     private void SetPlayerSkillState(int playerIndex, SkillType skillType, bool state)
     {
         playerSkills[playerIndex, (int)skillType] = state;
     }
 
+    private void Start()
+    {
+        StartCoroutine(HandleSkill(testIndex, testType));
+    }
     private IEnumerator HandleSkill(int playerIndex, SkillType skillType)
     {
         SetPlayerSkillState(playerIndex, skillType, true);
@@ -31,7 +47,36 @@ public class SkillManager : SingletonBehaviour<SkillManager>
         if (skillType == SkillType.InvisibleTurtle)
         {
             GameObject targetTurtle = playerIndex == 0 ? player2Turtle : player1Turtle;
-            targetTurtle.SetActive(false);
+            
+            //해당 거북이의 정보값 받아오기
+            Renderer turtleRD = targetTurtle.GetComponent<Renderer>();
+            Collider2D turtleCD = targetTurtle.GetComponent<Collider2D>();
+            
+            //반투명화
+            Color color = turtleRD.material.color;
+            color.a = 0.5f;
+            turtleRD.material.color = color;
+             
+            //istriggered로 바꾸기
+            turtleCD.isTrigger = true;
+        }
+
+        //double score는 gamemanager에서 자체적으로 해결
+
+        if (skillType == SkillType.ThrowStarfish)
+        {
+            GameObject targetSwing = playerIndex == 0 ? playerSwing[1] : playerSwing[0];
+
+            int random = Random.Range(0, 2); // 자식 개수에 맞게 랜덤 값 설정
+
+            Transform attackedChild = targetSwing.transform.GetChild(0); //둘 중 하나 attacked 당함
+            
+            attackedSwing = attackedChild.GetComponent<Swing>();
+            attackedSwing.enabled = false;
+
+            starfish.transform.position = attackedChild.position;
+
+            starfish.SetActive(true);
         }
 
         yield return _5sec;
@@ -39,17 +84,38 @@ public class SkillManager : SingletonBehaviour<SkillManager>
         if (skillType == SkillType.InvisibleTurtle)
         {
             GameObject targetTurtle = playerIndex == 0 ? player2Turtle : player1Turtle;
-            targetTurtle.SetActive(true);
+
+            //해당 거북이의 정보값 받아오기
+            Renderer turtleRD = targetTurtle.GetComponent<Renderer>();
+            Collider2D turtleCD = targetTurtle.GetComponent<Collider2D>();
+
+            //반투명화
+            Color color = turtleRD.material.color;
+            color.a = 1f;
+            turtleRD.material.color = color;
+
+            //istriggered로 바꾸기
+            turtleCD.isTrigger = false;
+        }
+
+        if (skillType == SkillType.ThrowStarfish)
+        {
+            yield return new WaitForSeconds(2f);
+            attackedSwing.enabled = true;
+            starfish.SetActive(false);
+
         }
 
         SetPlayerSkillState(playerIndex, skillType, false);
     }
 
+    //이걸로 스킬사용
     public void ActivateDoubleScore(int playerIndex) => StartCoroutine(HandleSkill(playerIndex, SkillType.DoubleScore));
     public void ActivateInvisibleTurtle(int playerIndex) => StartCoroutine(HandleSkill(playerIndex, SkillType.InvisibleTurtle));
     public void ActivateThrowStarFish(int playerIndex) => StartCoroutine(HandleSkill(playerIndex, SkillType.ThrowStarfish));
 
 
+    //이걸로 스킬체크
     public bool IsDoubleScoreActive(int playerIndex) => playerSkills[playerIndex, (int)SkillType.DoubleScore];
     public bool IsInvisibleTurtleActive(int playerIndex) => playerSkills[playerIndex, (int)SkillType.InvisibleTurtle];
     public bool IsThrowStarFishActive(int playerIndex) => playerSkills[playerIndex, (int)SkillType.ThrowStarfish];

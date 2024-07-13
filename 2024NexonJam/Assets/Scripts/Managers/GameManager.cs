@@ -97,24 +97,24 @@ public class GameManager : SingletonBehaviour<GameManager>
     {
         if (playerType == PlayerType.Player1)
         {
-            /*
+            
             if (SkillManager.Instance.IsDoubleScoreActive(0))
             {
                 val *= 2;
             }
-            */
+            
             int score = int.Parse(_player1Score.text);
             score += val;
             _player1Score.text = score.ToString();
         }
         else if (playerType == PlayerType.Player2)
         {
-            /*
-             * if (SkillManager.Instance.IsDoubleScoreActive(1))
+            
+            if (SkillManager.Instance.IsDoubleScoreActive(1))
             {
                 val *= 2;
             }
-            */
+            
             int score = int.Parse(_player2Score.text);
             score += val;
             _player2Score.text = score.ToString();
