@@ -120,7 +120,6 @@ public class GameManager : SingletonBehaviour<GameManager>
             SceneConManager.Instance.MoveScene("MenuScene");
             Destroy(gameObject);
         }
-        SoundManager.Instance.StopBGM();
     }
     private void UpdateTimerText()
     {
@@ -176,13 +175,13 @@ public class GameManager : SingletonBehaviour<GameManager>
     public void RandomGimicEvent()
     {   //랜덤으로 기믹 이벤트 발생 함수
         // 40,80,120 초 도달
-        int randomIdx = Random.Range(0, 1);
+        int randomIdx = Random.Range(0, 2);
 
         if (randomIdx == 1)   //렌덤으로 호출
         {
             eventManager.GetComponent<EventManager>().CrabEvent();
         }
-        else
+        else  //2일때
         {
             eventManager.GetComponent<EventManager>().WaveEvent();
         }
