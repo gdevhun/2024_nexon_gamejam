@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public enum PlayerType
@@ -22,7 +23,10 @@ public class GameManager : SingletonBehaviour<GameManager>
     
     public TextMeshProUGUI _player1Score;
     public TextMeshProUGUI _player2Score;
-    public GameObject resultPanel;
+    
+    public GameObject resultPanelP1;
+    public GameObject resultPanelP2;
+    public int winPlayerScore;
     
     public TextMeshProUGUI timerText;
     public Image timeGauge;
@@ -88,13 +92,36 @@ public class GameManager : SingletonBehaviour<GameManager>
         else if (seconds > 159)
         {   //90초 넘으면 게이지 초기화
             //게임 종료
-            ShowResult();
-            _isGameEnded = true;
-            elapsedTime = 0f;
-            previousSecond = 0;
+            EndGame();
         }
     }
+    private void EndGame()
+    {
+        _isGameEnded = true;
+        Time.timeScale = 0f;
+        elapsedTime = 0f;
+        previousSecond = 0;
 
+        int player1Score = int.Parse(_player1Score.text);
+        int player2Score = int.Parse(_player2Score.text);
+
+        if (player1Score > player2Score)
+        {
+            resultPanelP1.SetActive(true);
+            winPlayerScore = player1Score;
+        }
+        else if(player1Score < player2Score)
+        {
+            resultPanelP2.SetActive(true);
+            winPlayerScore = player2Score;
+        }
+        else
+        {
+            SceneConManager.Instance.MoveScene("MenuScene");
+            Destroy(gameObject);
+        }
+        SoundManager.Instance.StopBGM();
+    }
     private void UpdateTimerText()
     {
         int displaySeconds = (int)elapsedTime;
@@ -130,12 +157,7 @@ public class GameManager : SingletonBehaviour<GameManager>
         }
     }
 
-    public void ShowResult()
-    {
-        Time.timeScale = 0f;
-        resultPanel.SetActive(true);
-    }
-
+    
     public void InitGameManager()
     {
         Destroy(this);
