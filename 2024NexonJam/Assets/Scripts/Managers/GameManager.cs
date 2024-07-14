@@ -15,8 +15,10 @@ public enum PlayerType
     Player2
 }
 
-public class GameManager : SingletonBehaviour<GameManager>
+public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance = null;
+    
     public GameObject eventManager;
     public List<GameObject> GimicEventImg;
     private WaitForSeconds _waitForSeconds = new WaitForSeconds(2.5f);
@@ -33,7 +35,18 @@ public class GameManager : SingletonBehaviour<GameManager>
     private float elapsedTime;
     private int previousSecond;
     private bool _isGameEnded;
-    
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance= this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(this);
+        }
+
+    }
     private void Start()
     {
         SoundManager.Instance.StopBGM();
@@ -98,7 +111,6 @@ public class GameManager : SingletonBehaviour<GameManager>
     private void EndGame()
     {
         _isGameEnded = true;
-        Time.timeScale = 0f;
         elapsedTime = 0f;
         previousSecond = 0;
 

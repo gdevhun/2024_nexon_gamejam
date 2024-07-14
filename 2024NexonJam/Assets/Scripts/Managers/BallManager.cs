@@ -1,10 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using DG.Tweening;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
-using static UnityEditorInternal.VersionControl.ListControl;
-
+using UnityEngine.UI;
 public class BallManager : MonoBehaviour
 {
     public PlayerType LastPlayerType;
@@ -24,7 +21,6 @@ public class BallManager : MonoBehaviour
 
     private Vector3 lastPosition;
     private float stationaryTime;
-
 
     enum BallState
     {
@@ -55,7 +51,6 @@ public class BallManager : MonoBehaviour
 
         lineObject = transform.Find("Line").gameObject;
         gaugeBack = transform.Find("gauge_back").gameObject;
-
 
         //StartCoroutine(StateMachine());
     }
@@ -126,6 +121,7 @@ public class BallManager : MonoBehaviour
           
 
             objSetActive(true);
+            
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
             ballState = BallState.ROLLING;
@@ -229,4 +225,40 @@ public class BallManager : MonoBehaviour
     {
         ballState = BallState.WAITING;
     }
+
+    /*private void DisplayPlayer1Turn()
+    {
+       //Vector3(-1200,-415,0)
+       //Vector3(-760,-415,0)
+       Vector3 targetPosition = new Vector3(-760, player1ImgRect.localPosition.y, 0); // 목표 위치 설정 (X 값만 변경)
+       float duration = 1.5f; // 애니메이션 지속 시간
+
+       // X 좌표를 targetPosition으로 2.5초 동안 이동
+       player1ImgRect.DOAnchorPosX(targetPosition.x, duration)
+           .SetEase(Ease.OutQuad) // 부드러운 이동을 위한 이징 함수 설정
+           .OnComplete(() => // 이동 완료 후 실행될 작업 정의
+           {
+               // 원래 위치로 2.5초 동안 이동
+               player1ImgRect.DOAnchorPosX(-1200, duration)
+                   .SetEase(Ease.OutQuad); // 부드러운 이동을 위한 이징 함수 설정
+           });
+    }
+
+    private void DisplayPlayer2Turn()
+    {
+        //Vector3(1200,-401,0)
+        //Vector3(770,-401,0)
+        Vector3 targetPosition = new Vector3(770, player2ImgRect.localPosition.y, 0); // 목표 위치 설정 (X 값만 변경)
+        float duration = 1.5f; // 애니메이션 지속 시간
+
+        // X 좌표를 targetPosition으로 2.5초 동안 이동
+        player2ImgRect.DOAnchorPosX(targetPosition.x, duration)
+            .SetEase(Ease.OutQuad) // 부드러운 이동을 위한 이징 함수 설정
+            .OnComplete(() => // 이동 완료 후 실행될 작업 정의
+            {
+                // 원래 위치로 2.5초 동안 이동
+                player2ImgRect.DOAnchorPosX(1200, duration)
+                    .SetEase(Ease.OutQuad); // 부드러운 이동을 위한 이징 함수 설정
+            });
+    }*/
 }

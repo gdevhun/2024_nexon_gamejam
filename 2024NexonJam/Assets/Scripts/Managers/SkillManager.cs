@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class SkillManager : SingletonBehaviour<SkillManager>
+public class SkillManager : MonoBehaviour
 {
+    public static SkillManager Instance;
     public enum SkillType
     {
         DoubleScore=0,
@@ -27,7 +28,18 @@ public class SkillManager : SingletonBehaviour<SkillManager>
     private bool[,] playerSkills = new bool[PlayerCount, SkillCount];
 
     private Swing attackedSwing;
-    
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance= this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(this);
+        }
+
+    }
     private void SetPlayerSkillState(int playerIndex, SkillType skillType, bool state)
     {
         playerSkills[playerIndex, (int)skillType] = state;

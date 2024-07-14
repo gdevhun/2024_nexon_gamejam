@@ -9,6 +9,10 @@ public class MenuSceneInit : MonoBehaviour
     {
         // 메뉴bgm재생
         SoundManager.Instance.PlayBGM(SoundType.메뉴씬Bgm);
+        if (SkillManager.Instance)
+        {
+            //Destroy(SkillManager.Instance);
+        }
     }
 
     public void PlayBtnSelectSfx()
