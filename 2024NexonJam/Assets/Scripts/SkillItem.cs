@@ -9,9 +9,9 @@ public class Item
 {
     public enum ItemType
     {
-        Item1,
-        Item2,
-        Item3
+        ghost,
+        doubleScore,
+        startfish
     }
 
     public ItemType itemType;
@@ -32,6 +32,7 @@ public class SkillItem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        SoundManager.Instance.PlaySfx(SoundType.아이템획득sfx);
         BallManager ballManager = other.gameObject.GetComponent<BallManager>();
         if (ballManager == null) return;
 

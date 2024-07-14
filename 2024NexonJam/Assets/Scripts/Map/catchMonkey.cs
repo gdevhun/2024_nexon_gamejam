@@ -4,14 +4,13 @@ using UnityEngine;
 using DG.Tweening;
 using Unity.VisualScripting;
 
+
 public class catchMonkey : MonoBehaviour
 {
     DG.Tweening.Sequence startSequence;
     GameObject ball;
-    SpriteRenderer ballSR;
     SpriteRenderer crabSR;
-
-    public Sprite ballHipSprite;
+    BallManager ballManager;
 
     public Sprite[] ballType;
     private Sprite original;
@@ -25,17 +24,13 @@ public class catchMonkey : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("ball"))
         {
+            SoundManager.Instance.PlaySfx(SoundType.í™ì¶©ëŒsfx);
             ball = collision.gameObject;
-            ballSR = collision.GetComponent<SpriteRenderer>();
+            ballManager = ball.GetComponent<BallManager>();
             startSequence.Append(monkeySequence());
 
         }
@@ -47,18 +42,18 @@ public class catchMonkey : MonoBehaviour
         return DOTween.Sequence()
         .OnStart(() => {
             ball.SetActive(false);
-            if (ballSR.sprite == ballHipSprite)
+            if (ballManager.LastPlayerType == PlayerType.Player2)
             {
-                crabSR.sprite = ballType[0];
+                crabSR.sprite = ballType[1];
             }
             else
-                crabSR.sprite = ballType[1];
+                crabSR.sprite = ballType[0];
         })
-        .Append(transform.DOShakePosition(1.5f, 0.5f, 10, 5, false, true)) // Áøµ¿ È¿°ú
+        .Append(transform.DOShakePosition(1.5f, 0.5f, 10, 5, false, true)) // ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½
         .OnComplete(() => {
             ball.SetActive(true);
             LaunchBallWithDirection();
-            this.GetComponent<SpriteRenderer>().sprite = original; // ¼¼·¹¸ğ´Ï Á¾·á ÈÄ ¿ø·¡ ½ºÇÁ¶óÀÌÆ®·Î º¹¿ø
+            this.GetComponent<SpriteRenderer>().sprite = original; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         });
     }
 

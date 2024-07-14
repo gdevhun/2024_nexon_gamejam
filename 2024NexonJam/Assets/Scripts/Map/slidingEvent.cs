@@ -1,9 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using UnityEditor.Experimental.GraphView;
-using UnityEngine.PlayerLoop;
 
 public class slidingEvent : MonoBehaviour
 {
@@ -15,13 +12,13 @@ public class slidingEvent : MonoBehaviour
     public Transform snail;
 
     private float dir = 1f;
-    public bool isSliding = false;
+    private bool isSliding = false;
     SpriteRenderer spriteRenderer;
 
-    public float timeInTrigger = 0f;
-    public bool isInTrigger = false;
+    private float timeInTrigger = 0f;
+    private bool isInTrigger = false;
 
-
+    private int originalLayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +27,7 @@ public class slidingEvent : MonoBehaviour
 
         DOTween.Init(false, true, LogBehaviour.ErrorsOnly);
 
-        //¸¸¾à ¿ŞÂÊ ½½¶óÀÌµå°¡ ¾Æ´Ï¶ó¸é hole À§Ä¡ ÁÂ¿ì¹İÀüÇØÁÜ
+        //ë§Œì•½ ì™¼ìª½ ìŠ¬ë¼ì´ë“œê°€ ì•„ë‹ˆë¼ë©´ hole ìœ„ì¹˜ ì¢Œìš°ë°˜ì „í•´ì¤Œ
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -39,8 +36,9 @@ public class slidingEvent : MonoBehaviour
             slidingBall = collision.gameObject;
             slidingRb = slidingBall.GetComponent<Rigidbody2D>();
             spriteRenderer = slidingBall.GetComponent<SpriteRenderer>();
+            originalLayer = slidingBall.gameObject.layer;
 
-            //½Ã°£ Àç±â ½ÃÀÛ 
+            //ì‹œê°„ ì¬ê¸° ì‹œì‘ 
             isInTrigger = true;
             timeInTrigger = 0f;
         }
@@ -71,13 +69,14 @@ public class slidingEvent : MonoBehaviour
 
     IEnumerator startSliding()
     {
-        //±×·¯´Ï±î slidingballÀÌ layer slidingBallÀÎ µ¿¾È
+        SoundManager.Instance.PlaySfx(SoundType.ìŠ¬ë¼ì´ë“œê°•í•˜sfx);
+        //ê·¸ëŸ¬ë‹ˆê¹Œ slidingballì´ layer slidingBallì¸ ë™ì•ˆ
         while (isSliding)
         {
-            slidingBall.layer = 8;
             yield return new WaitForSeconds(0.2f);
-            slidingRb.velocity = Vector3.zero; //±× ±¸¸Û¿¡ ¸ØÃç¼¼¿ì°í
+            slidingRb.velocity = Vector3.zero; //ê·¸ êµ¬ë©ì— ë©ˆì¶°ì„¸ìš°ê³ 
             slidingRb.gravityScale = 0f;
+            slidingBall.layer = 8;
             slidingBall.transform.position = new Vector3(hole.position.x*dir, hole.position.y, hole.position.z);
             spriteRenderer.sortingOrder = 5;
 
@@ -85,21 +84,21 @@ public class slidingEvent : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
             slidingBall.SetActive(false);
 
-            //Æ÷Áö¼Ç snailÂÊÀ¸·Î ¿Å°ÜÁÖ°í
+            //í¬ì§€ì…˜ snailìª½ìœ¼ë¡œ ì˜®ê²¨ì£¼ê³ 
             slidingBall.transform.position = new Vector3(snail.position.x * dir, snail.position.y, snail.position.z);
             yield return new WaitForSeconds(0.5f);
 
-            //ÄÑÁÖ°í
+            //ì¼œì£¼ê³ 
             slidingBall.SetActive(true);
             slidingBall.transform.DOScale(new Vector3(0.8f, 0.8f, 0f), 0.5f);
-            yield return new WaitForSeconds(0.2f);
+            slidingRb.gravityScale = 4f;
+            yield return new WaitForSeconds(2f);
 
            
-            slidingBall.layer = 0;
-            slidingRb.gravityScale = 4f;
-            spriteRenderer.sortingOrder = 0;
-
             isSliding = false;
+            slidingBall.layer = originalLayer;
+            spriteRenderer.sortingOrder = 3;
+
         }
     }
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class transparency : MonoBehaviour
 {
     private Renderer rd;
 
@@ -23,6 +23,7 @@ public class NewBehaviourScript : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        SoundManager.Instance.PlaySfx(SoundType.조작바충돌sfx);
         if (collision.gameObject.CompareTag("ball"))
         {
             Color color = rd.material.color;

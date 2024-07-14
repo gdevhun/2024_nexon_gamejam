@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D (Collider2D other)
     {
+        SoundManager.Instance.PlaySfx(SoundType.코인획득sfx);
+        
         BallManager ballManager = other.gameObject.GetComponent<BallManager>();
         if (ballManager == null) return;
 
