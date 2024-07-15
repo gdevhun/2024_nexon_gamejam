@@ -43,7 +43,7 @@
 
 ## 시연영상 
 #### ⬇ Link Here ⬇
-<a href="https://drive.google.com/file/d/1ZXpCdvEg9F4AC1_1shhtZfxG0oR_4BTN/view" target="_blank"><img width="65" height="25" src="https://github.com/gdevhun/gdevhun/assets/150761282/67d883af-15ba-4ead-997d-da1ecfbd326a"/></a>
+<a href="https://youtu.be/jgmzHqT6Axc" target="_blank"><img width="65" height="25" src="https://github.com/gdevhun/gdevhun/assets/150761282/67d883af-15ba-4ead-997d-da1ecfbd326a"/></a>
  
 ## 기술 스택 💻
 <img src="https://img.shields.io/badge/Unity-FFFFFF?style=for-the-badge&logo=Unity&logoColor=black">
