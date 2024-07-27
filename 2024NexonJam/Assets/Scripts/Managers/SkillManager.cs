@@ -53,11 +53,9 @@ public class SkillManager : MonoBehaviour
         {
             GameObject targetTurtle = playerIndex == 0 ? player2Turtle : player1Turtle;
             
-            //�ش� �ź����� ������ �޾ƿ���
             Renderer turtleRD = targetTurtle.GetComponent<Renderer>();
             Collider2D turtleCD = targetTurtle.GetComponent<Collider2D>();
             
-            //������ȭ
             Color color = turtleRD.material.color;
             color.a = 0.5f;
             turtleRD.material.color = color;
@@ -66,15 +64,14 @@ public class SkillManager : MonoBehaviour
             turtleCD.isTrigger = true;
         }
 
-        //double score�� gamemanager���� ��ü������ �ذ�
 
         if (skillType == SkillType.ThrowStarfish)
         {
             GameObject targetSwing = playerIndex == 0 ? playerSwing[1] : playerSwing[0];
 
-            int random = Random.Range(0, 2); // �ڽ� ������ �°� ���� �� ����
+            int random = Random.Range(0, 2); 
 
-            Transform attackedChild = targetSwing.transform.GetChild(random); //�� �� �ϳ� attacked ����
+            Transform attackedChild = targetSwing.transform.GetChild(random); 
             
             attackedSwing = attackedChild.GetComponent<Swing>();
             attackedSwing.enabled = false;
@@ -90,16 +87,13 @@ public class SkillManager : MonoBehaviour
         {
             GameObject targetTurtle = playerIndex == 0 ? player2Turtle : player1Turtle;
 
-            //�ش� �ź����� ������ �޾ƿ���
             Renderer turtleRD = targetTurtle.GetComponent<Renderer>();
             Collider2D turtleCD = targetTurtle.GetComponent<Collider2D>();
 
-            //������ȭ
             Color color = turtleRD.material.color;
             color.a = 1f;
             turtleRD.material.color = color;
 
-            //istriggered�� �ٲٱ�
             turtleCD.isTrigger = false;
         }
 
@@ -114,13 +108,11 @@ public class SkillManager : MonoBehaviour
         SetPlayerSkillState(playerIndex, skillType, false);
     }
 
-    //�̰ɷ� ��ų���
     public void ActivateDoubleScore(int playerIndex) => StartCoroutine(HandleSkill(playerIndex, SkillType.DoubleScore));
     public void ActivateInvisibleTurtle(int playerIndex) => StartCoroutine(HandleSkill(playerIndex, SkillType.InvisibleTurtle));
     public void ActivateThrowStarFish(int playerIndex) => StartCoroutine(HandleSkill(playerIndex, SkillType.ThrowStarfish));
 
 
-    //�̰ɷ� ��ųüũ
     public bool IsDoubleScoreActive(int playerIndex) => playerSkills[playerIndex, (int)SkillType.DoubleScore];
     public bool IsInvisibleTurtleActive(int playerIndex) => playerSkills[playerIndex, (int)SkillType.InvisibleTurtle];
     public bool IsThrowStarFishActive(int playerIndex) => playerSkills[playerIndex, (int)SkillType.ThrowStarfish];
